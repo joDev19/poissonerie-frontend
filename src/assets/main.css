@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+.label {
+    @apply w-full text-lg
+}
+
+.input {
+    @apply w-full border focus:outline-none border-gray-400 rounded h-10 text-lg p-2
+}
