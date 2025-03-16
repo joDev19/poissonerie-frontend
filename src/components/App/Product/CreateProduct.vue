@@ -17,7 +17,18 @@
                             <option v-for="marque in createData.marques" :value="marque.id">{{ marque.name }}</option>
                         </select>
                     </div>
-
+                </div>
+                <div class="lg:flex">
+                    <div class="w-full">
+                        <label for="price" class="label">Prix du kilo</label>
+                        <input type="number" step="0.10" v-model="produit.price_kilo" class="input" id="price">
+                    </div>
+                </div>
+                <div class="lg:flex">
+                    <div class="w-full">
+                        <label for="price" class="label">Prix du carton</label>
+                        <input type="number" step="0.10" v-model="produit.price_carton" class="input" id="price">
+                    </div>
                 </div>
             </form>
         </div>
@@ -54,7 +65,7 @@ const createMarque = () => {
     emits("confirm")
 }
 const updateMarque = () => {
-    crudStore.update({ name: produit.value.name, marque_id: produit.value.marque_id });
+    crudStore.update({ name: produit.value.name, marque_id: produit.value.marque_id, price_kilo: produit.value.price_kilo, price_carton: produit.value.price_carton });
     emits("confirm")
 }
 onUnmounted(() => {

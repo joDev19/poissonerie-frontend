@@ -7,7 +7,7 @@ export const useLoaderStore = defineStore('loader', {
             this.active = true;
         },
         hide() {
-            this.active = true;
+            this.active = false;
         }
     }
 })

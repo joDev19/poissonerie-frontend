@@ -5,6 +5,12 @@
                 <th class="pb-3 ps-5 text-start min-w-auto">
                     Nom
                 </th>
+                <th class="pb-3 ps-5 text-start min-w-auto">
+                    Prix du kilo
+                </th>
+                <th class="pb-3 ps-5 text-start min-w-auto">
+                    Prix du carton
+                </th>
                 <th class="pb-3 ps-5  text-start min-w-auto">
                     Date de création
                 </th>
@@ -14,6 +20,12 @@
             <tr v-for="product in products" :key="product.id" class="border-b-2">
                 <td class="py-2 ps-5">
                     {{ product.name }}
+                </td>
+                <td class="py-2 ps-5">
+                    {{ product.price_kilo }} xof
+                </td>
+                <td class="py-2 ps-5">
+                    {{ product.price_carton }} xof
                 </td>
                 <td class="py-2 ps-5">
                     {{ formatDate(product.created_at) }}

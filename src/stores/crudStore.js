@@ -37,10 +37,12 @@ export const useCrudStore = defineStore('crud', {
                 }).finally(() => useLoaderStore().active = false)
             }
         },
-        async store() {
+        async store(data = null) {
             useLoaderStore().active = true;
             try {
-                const res = await client.post(this.url, this.item);
+                if (data == null)
+                    data = this.item
+                const res = await client.post(this.url, data);
                 this.index();
             } catch (err) {
                 return console.log(err);

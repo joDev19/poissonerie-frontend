@@ -8,6 +8,14 @@
                 <p class="sm:w-3/5">{{ produit.name }}</p>
             </div>
             <div class="border-b  p-2 my-2 sm:flex sm:items-center">
+                <p class="font-bold sm:w-2/5">Prix du kilo</p>
+                <p class="sm:w-3/5">{{ produit.price_kilo }} xof</p>
+            </div>
+            <div class="border-b  p-2 my-2 sm:flex sm:items-center">
+                <p class="font-bold sm:w-2/5">Prix du carton</p>
+                <p class="sm:w-3/5">{{ produit.price_carton }} xof</p>
+            </div>
+            <div class="border-b  p-2 my-2 sm:flex sm:items-center">
                 <p class="font-bold sm:w-2/5">Marque</p>
                 <p class="sm:w-3/5">{{ produit.marque.name }}</p>
             </div>

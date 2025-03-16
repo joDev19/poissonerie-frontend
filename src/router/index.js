@@ -3,6 +3,7 @@ import Login from '@/views/Auth/Login.vue'
 import IndexEntrer from '@/views/App/Entrer/Index.vue'
 import IndexMarque from '@/views/App/Marque/Index.vue'
 import IndexFournisseur from '@/views/App/Fournisseur/Index.vue'
+import IndexVente from '@/views/App/Vente/Index.vue'
 import IndexProduct from "@/views/App/Product/Index.vue"
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -44,6 +45,11 @@ const router = createRouter({
       name: 'product',
       component: IndexProduct,
     },
+    {
+      path: '/vente/dashboard',
+      name: 'vente',
+      component: IndexVente
+    }
   ],
 })
 

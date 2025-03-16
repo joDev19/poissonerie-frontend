@@ -3,7 +3,7 @@
     <Navbar />
     <Sidebar />
     <div class="h-16"></div>
-    <div class="px-5 py-8 min-h-96 lg:flex lg:w-full">
+    <div class="px-5 py-8 min-h-full lg:flex lg:w-full">
         <div class="lg:w-1/5"></div>
         <div class="rounded h-full lg:w-4/5 p-1">
             <slot />

@@ -35,6 +35,13 @@
                             <p class="w-7/8 text-white text-lg font-semibold">Gérer les entrés</p>
                         </RouterLink>
                     </li>
+                    <li class="my-1">
+                        <RouterLink class="flex items-center justify-start gap-3 p-2 rounded-lg"
+                            :to="{ name: 'vente' }" active-class="bg-blue-700">
+                            <!-- <i class="fa-solid fa-arrow-left w-1/8" style="color:#fff;"></i> -->
+                            <p class="w-7/8 text-white text-lg font-semibold">Gérer les ventes</p>
+                        </RouterLink>
+                    </li>
 
 
                 </ul>
