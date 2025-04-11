@@ -17,11 +17,11 @@
                 <i class="fa-solid fa-caret-down" style="color:#afb1af;" id="userIconDrop"></i>
             </span>
         </div>
-        <div class="w-32 rounded-lg px-2 py-1 shadow-xl absolute top-14 right-3 bg-white border hidden z-2"
+        <div class="w-32 rounded-lg px-2 py-1 shadow-xl absolute top-14 right-3 bg-white border hidden z-2 hover:cursor-pointer"
             id="userSetting">
             <ul>
-                <li class="p-1 text-sm">Your profile</li>
-                <li class="p-1 text-sm">Sign out</li>
+                <li class="p-1 hover:cursor-pointer">Your profile</li>
+                <li class="p-1 hover:cursor-pointer">Sign out</li>
             </ul>
         </div>
     </div>

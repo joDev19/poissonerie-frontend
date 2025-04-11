@@ -2,10 +2,22 @@
     <VueFinalModal class="flex justify-center items-center p-5"
         content-class="flex flex-col p-4 bg-white  rounded-lg space-y-2 w-full sm:w-3/5">
         <div class="rounded-lg p-4">
-            <p class="font-bold">Informations sur ce fournisseur</p>
+            <p class="font-bold"> <img src="../../../../public/icons/fournisseur-black.png" alt=""> Informations sur ce fournisseur</p>
             <div class="border-b  p-2 my-2 sm:flex sm:items-center">
                 <p class="font-bold sm:w-2/5">Nom</p>
                 <p class="sm:w-3/5">{{ fournisseur.name }}</p>
+            </div>
+            <div class="border-b  p-2 my-2 sm:flex sm:items-center">
+                <p class="font-bold sm:w-2/5">Contact</p>
+                <p class="sm:w-3/5">{{ fournisseur.contact }}</p>
+            </div>
+            <div class="border-b  p-2 my-2 sm:flex sm:items-center">
+                <p class="font-bold sm:w-2/5">Adresse</p>
+                <p class="sm:w-3/5">{{ fournisseur.adresse }}</p>
+            </div>
+            <div class="border-b  p-2 my-2 sm:flex sm:items-center">
+                <p class="font-bold sm:w-2/5">Nombre d'aprovisionnement</p>
+                <p class="sm:w-3/5">{{ fournisseur.approvisionements?.length }}</p>
             </div>
             <div class="border-b  p-2 my-2 sm:flex sm:items-center">
                 <p class="font-bold sm:w-2/5">Date de création</p>

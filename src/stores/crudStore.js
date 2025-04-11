@@ -4,6 +4,8 @@ import { useLoaderStore } from "./Loader";
 export const useCrudStore = defineStore('crud', {
     state: () => ({
         items: [],
+        paginate_data: {},
+        filters: {},
         item: {},
         errors: {},
         url: "",
@@ -14,8 +16,11 @@ export const useCrudStore = defineStore('crud', {
             useLoaderStore().active = true;
             try {
                 try {
-                    const res = await client.get(this.url);
-                    this.items = res.data;
+                    const searchs = new URLSearchParams(this.filters)
+                    const res = await client.get(`${this.url}${searchs == '' ? '' : `?${searchs}`}`);
+                    this.paginate_data = res.data
+                    this.items = this.paginate_data.data;
+                    delete this.paginate_data.data
                 } catch (err) {
                     console.log(err);
                 }
@@ -81,6 +86,10 @@ export const useCrudStore = defineStore('crud', {
                 console.log(err);
             }
             // .finally(() => useLoaderStore().active = false)
+        },
+        resetFilter() {
+            this.filters = {}
+            this.index();
         }
     }
 })

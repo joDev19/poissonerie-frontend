@@ -16,12 +16,16 @@
                 <p class="sm:w-3/5">{{ produit.price_carton }} xof</p>
             </div>
             <div class="border-b  p-2 my-2 sm:flex sm:items-center">
+                <p class="font-bold sm:w-2/5">Quantité disponible</p>
+                <p class="sm:w-3/5">{{ produit.quantity.kg }} kg | {{ produit.quantity.box }} cartons(s)</p>
+            </div>
+            <div class="border-b  p-2 my-2 sm:flex sm:items-center">
                 <p class="font-bold sm:w-2/5">Marque</p>
                 <p class="sm:w-3/5">{{ produit.marque.name }}</p>
             </div>
             <div class="border-b  p-2 my-2 sm:flex sm:items-center">
                 <p class="font-bold sm:w-2/5">Date de création</p>
-                <p class="sm:w-3/5">{{ produit.created_at }}</p>
+                <p class="sm:w-3/5">{{ formatDate(produit.created_at) }}</p>
             </div>
             <!-- <div class="border-b rounded p-2 my-2 sm:flex sm:items-center">
                 <p class="font-bold sm:w-2/5">About</p>
@@ -42,6 +46,7 @@
 import { VueFinalModal } from 'vue-final-modal';
 import Button from '@/components/Button.vue';
 import { onUnmounted } from 'vue';
+import { formatDate } from '@/helper';
 import { useCrudStore } from '@/stores/crudStore';
 import { storeToRefs } from 'pinia';
 const crudStore = useCrudStore()

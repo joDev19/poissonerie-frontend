@@ -14,7 +14,7 @@
                     <div class="w-full">
                         <label for="nom" class="label">Marque</label>
                         <select v-model="produit.marque_id" class="input" id="nom">
-                            <option v-for="marque in createData.marques" :value="marque.id">{{ marque.name }}</option>
+                            <option v-for="marque in createData?.marques" :value="marque.id">{{ marque.name }}</option>
                         </select>
                     </div>
                 </div>

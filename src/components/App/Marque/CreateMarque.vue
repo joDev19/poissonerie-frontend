@@ -1,9 +1,15 @@
 <template>
     <VueFinalModal class="flex justify-center items-center p-5"
         content-class="flex flex-col p-4 bg-white border  rounded-lg space-y-2 w-full sm:w-2/5">
-        <h1 class="text-xl">
-            Enregistrer une marque
-        </h1>
+        <div class="flex gap-1">
+            <img src="../../../../public/icons/categorie-black.png" alt="">
+            <h1 v-show="!isUpdate" class="text-xl">
+                Enregistrer une marque
+            </h1>
+            <h1 v-show="isUpdate" class="text-xl">
+                Modofication
+            </h1>
+        </div>
         <div>
             <form action="">
                 <div class="lg:flex lg:gap-3">

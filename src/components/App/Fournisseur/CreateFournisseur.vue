@@ -6,10 +6,18 @@
         </h1>
         <div>
             <form action="">
-                <div class="lg:flex lg:gap-3">
+                <div class="">
                     <div class="w-full">
                         <label for="nom" class="label">Nom</label>
                         <input type="text" v-model="fournisseur.name" class="input" id="nom">
+                    </div>
+                    <div class="w-full">
+                        <label for="contact" class="label">Contact</label>
+                        <input type="text" v-model="fournisseur.contact" class="input" id="contact">
+                    </div>
+                    <div class="w-full">
+                        <label for="adresse" class="label">Adresse</label>
+                        <input type="text" v-model="fournisseur.adresse" class="input" id="adresse">
                     </div>
 
                 </div>
@@ -46,7 +54,7 @@ const createMarque = () => {
     emits("confirm")
 }
 const updateMarque = () => {
-    crudStore.update({ name: fournisseur.value.name });
+    crudStore.update({ name: fournisseur.value.name, adresse: fournisseur.value.adresse, contact: fournisseur.value.contact });
     emits("confirm")
 }
 onUnmounted(() => {

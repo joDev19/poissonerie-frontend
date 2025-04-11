@@ -35,7 +35,7 @@
         <div v-if="showBuyerInfos" class="lg:flex lg:gap-3">
             <div class="w-full lg:w-1/2">
                 <label for="name" class="label">Nom & Prénom</label>
-                <input type="text" name="name"  class="input" id="name">
+                <input type="text" name="name" class="input" id="name">
             </div>
             <div class="w-full lg:w-1/2">
                 <label for="email" class="label">Email</label>
@@ -46,44 +46,59 @@
             <p class="text-blue-500 font-semibold">Information sur le produit</p>
             <div class="p-2">
                 <table class="w-full lg:w-1/2">
-                    <tr>
-                        <td>Nom</td>
-                        <td>{{ product.name }}</td>
-                    </tr>
-                    <tr>
-                        <td>Marque</td>
-                        <td>{{ product.marque.name }}</td>
-                    </tr>
-                    <tr>
-                        <td>Prix du kilo</td>
-                        <td>{{ product.price_kilo }} fcfa</td>
-                    </tr>
-                    <tr>
-                        <td>Prix du carton</td>
-                        <td>{{ product.price_carton }} fcfa</td>
-                    </tr>
+                    <tbody>
+                        <tr>
+                            <td>Nom</td>
+                            <td>{{ product.name }}</td>
+                        </tr>
+                        <tr>
+                            <td>Marque</td>
+                            <td>{{ product.marque.name }}</td>
+                        </tr>
+                        <tr>
+                            <td>Prix du kilo</td>
+                            <td>{{ product.price_kilo }} fcfa</td>
+                        </tr>
+                        <tr>
+                            <td>Prix du carton</td>
+                            <td>{{ product.price_carton }} fcfa</td>
+                        </tr>
+                        <tr>
+                            <td>Quantité disponible en kilo</td>
+                            <td>{{ product.quantity.kg }} kg</td>
+                        </tr>
+                        <tr>
+                            <td>Quantité disponible en carton</td>
+                            <td>{{ product.quantity.box }} carton(s)</td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
             <p class="text-blue-500 font-semibold">Information de la vente</p>
             <div class="p-2">
                 <table class="w-full lg:w-1/2">
-                    <tr>
-                        <td>Type de l'achat</td>
-                        <td> {{ vente.type == "detail" ? 'en détail' : 'en gros' }} </td>
-                    </tr>
-                    <tr>
-                        <td>Quantité</td>
-                        <td>{{ vente.quantity }} <span v-if="vente.type == 'detail'">kg</span><span
-                                v-if="vente.type == 'gros'">carton<span v-show="vente.quantity > 1">s</span></span></td>
-                    </tr>
-                    <tr>
-                        <td>Coût de la vente</td>
-                        <td v-if="vente.quantity > 0 && vente.type == 'gros'"> {{ Intl.NumberFormat('fr-FR').format(Number(product.price_carton) *
-                            Number(vente.quantity)) }} fcfa</td>
-                        <td v-if="vente.quantity > 0 && vente.type =='detail'"> {{ Intl.NumberFormat('fr-FR').format(Number(product.price_kilo) *
-                            Number(vente.quantity)) }} fcfa</td>
-                        <td v-if="vente.quantity <= 0">_</td>
-                    </tr>
+                    <tbody>
+                        <tr>
+                            <td>Type de l'achat</td>
+                            <td> {{ vente.type == "detail" ? 'en détail' : 'en gros' }} </td>
+                        </tr>
+                        <tr>
+                            <td>Quantité</td>
+                            <td>{{ vente.quantity }} <span v-if="vente.type == 'detail'">kg</span><span
+                                    v-if="vente.type == 'gros'">carton<span v-show="vente.quantity > 1">s</span></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Coût de la vente</td>
+                            <td v-if="vente.quantity > 0 && vente.type == 'gros'"> {{
+                                Intl.NumberFormat('fr-FR').format(Number(product.price_carton) *
+                                Number(vente.quantity)) }} fcfa</td>
+                            <td v-if="vente.quantity > 0 && vente.type =='detail'"> {{
+                                Intl.NumberFormat('fr-FR').format(Number(product.price_kilo) *
+                                Number(vente.quantity)) }} fcfa</td>
+                            <td v-if="vente.quantity <= 0">_</td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -101,14 +116,17 @@ import { storeToRefs } from 'pinia';
 import { computed, ref, watch } from 'vue';
 import { useVenteStore } from '@/stores/VenteStore';
 import { reFormatDate } from '@/helper';
-
+const venteStore = useVenteStore()
+const {step, isUpdate} = storeToRefs(venteStore)
 const loaderStore = useLoaderStore()
 const crudStore = useCrudStore()
 const showBuyerInfos = ref(false)
 const { item: vente, createData } = storeToRefs(crudStore);
+
 crudStore.create().then(res => {
     loaderStore.hide()
 });
+
 const hour = ref(`${reFormatDate(new Date().getHours())}:${reFormatDate(new Date().getMinutes())}`)
 
 vente.value.date = `${new Date().getFullYear()}-${reFormatDate(new Date().getMonth() + 1)}-${reFormatDate(new Date().getDate())}`
@@ -119,18 +137,29 @@ vente.value.quantity = 0
 const product = computed(() => {
     return vente.value.product_id == 0 ? {} : createData.value.products.find(p => p.id == vente.value.product_id)
 })
+if (isUpdate.value && step.value == 2) {
+    console.log("c'est un update")
+    // faire le mapping des données....
+} else {
+    console.log("c'est un create")
+}
+
 
 const handleSubmit = () => {
-    const venteCopy = {...vente.value, "date": `${vente.value.date} ${hour.value}`}
-    if (!vente.value.product_id || vente.value.quantity==0) {
-        alert('choisissez un produit et une quantité');
+    if (!isUpdate.value) {
+        const venteCopy = {...vente.value, "date": `${vente.value.date} ${hour.value}`}
+        if (!vente.value.product_id || vente.value.quantity==0) {
+            alert('choisissez un produit et une quantité');
+        } else {
+            crudStore.store(venteCopy).then(() => {
+                loaderStore.hide();
+                vente.value = {}
+                createData.value = {}
+                step.value = 1;
+            })
+        }
     } else {
-        crudStore.store(venteCopy).then(() => {
-            loaderStore.hide();
-            vente.value = {}
-            createData.value = {}
-            useVenteStore().step = 1;
-        })
+        // c'est un update
     }
 }
 </script>

@@ -3,7 +3,7 @@ import Swal from 'sweetalert2'
 import router from "./router";
 const client = axios.create({
     baseURL: 'http://localhost:8000',
-    // baseURL: 'http://192.168.1.104',
+    // baseURL: 'http://192.168.1.104:8000',
 
     // timeout: 1000,
     headers: { "Accept": "application/json" },
@@ -24,7 +24,7 @@ client.interceptors.response.use(function (response) {
         confirmButtonText: 'OK'
     }).then(() => {
         if (error.status === 401)
-            router.push({ 'name': 'login'})
+            router.push({ 'name': 'login' })
     })
     return Promise.reject(error);
 });

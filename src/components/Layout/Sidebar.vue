@@ -8,37 +8,41 @@
             <div class="p-5 min-h-6/8">
                 <ul>
                     <li class="my-1">
-                        <RouterLink class="flex items-center justify-start gap-3 p-2 rounded-lg"
+                        <RouterLink class="flex items-center justify-start gap-3 p-2 rounded-lg hover:bg-blue-700"
                             :to="{ name: 'marque' }" active-class="bg-blue-700">
                             <!-- <i class="fa-solid fa-arrow-left w-1/8" style="color:#fff;"></i> -->
-                            <p class="w-7/8 text-white text-lg font-semibold">Gérer les marques</p>
+                            <img src="../../../public/icons/categorie.png" class="w-10" alt="">
+                            <p class="w-7/8 text-white text-lg font-semibold">Gérer les catégories</p>
                         </RouterLink>
                     </li>
                     <li class="my-1">
-                        <RouterLink class="flex items-center justify-start gap-3 p-2 rounded-lg"
+                        <RouterLink class="flex items-center justify-start gap-3 p-2 rounded-lg hover:bg-blue-700"
                             :to="{ name: 'fournisseur' }" active-class="bg-blue-700">
-                            <!-- <i class="fa-solid fa-arrow-left w-1/8" style="color:#fff;"></i> -->
+                            <img src="../../../public/icons/fournisseur.png" class="w-10" alt="">
                             <p class="w-7/8 text-white text-lg font-semibold">Gérer les fournisseurs</p>
                         </RouterLink>
                     </li>
                     <li class="my-1">
-                        <RouterLink class="flex items-center justify-start gap-3 p-2 rounded-lg"
+                        <RouterLink class="flex items-center justify-start gap-3 p-2 rounded-lg hover:bg-blue-700"
                             :to="{ name: 'product' }" active-class="bg-blue-700">
                             <!-- <i class="fa-solid fa-arrow-left w-1/8" style="color:#fff;"></i> -->
+                            <img src="../../../public/icons/product.png" class="w-10" alt="">
                             <p class="w-7/8 text-white text-lg font-semibold">Gérer les produits</p>
                         </RouterLink>
                     </li>
                     <li class="my-1">
-                        <RouterLink class="flex items-center justify-start gap-3 p-2 rounded-lg"
+                        <RouterLink class="flex items-center justify-start gap-3 p-2 rounded-lg hover:bg-blue-700"
                             :to="{ name: 'entrer' }" active-class="bg-blue-700">
                             <!-- <i class="fa-solid fa-arrow-left w-1/8" style="color:#fff;"></i> -->
+                            <img src="../../../public/icons/approvisionnement.png" class="w-10" alt="">
                             <p class="w-7/8 text-white text-lg font-semibold">Gérer les entrés</p>
                         </RouterLink>
                     </li>
                     <li class="my-1">
-                        <RouterLink class="flex items-center justify-start gap-3 p-2 rounded-lg"
+                        <RouterLink class="flex items-center justify-start gap-3 p-2 rounded-lg hover:bg-blue-700"
                             :to="{ name: 'vente' }" active-class="bg-blue-700">
                             <!-- <i class="fa-solid fa-arrow-left w-1/8" style="color:#fff;"></i> -->
+                            <img src="../../../public/icons/sell.png" class="w-10" alt="">
                             <p class="w-7/8 text-white text-lg font-semibold">Gérer les ventes</p>
                         </RouterLink>
                     </li>

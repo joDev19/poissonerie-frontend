@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Login from '@/views/Auth/Login.vue'
 import IndexEntrer from '@/views/App/Entrer/Index.vue'
+import { useCrudStore } from '@/stores/crudStore'
 import IndexMarque from '@/views/App/Marque/Index.vue'
 import IndexFournisseur from '@/views/App/Fournisseur/Index.vue'
 import IndexVente from '@/views/App/Vente/Index.vue'
@@ -52,5 +53,9 @@ const router = createRouter({
     }
   ],
 })
-
+router.beforeEach((to, from) => {
+  // ...
+  useCrudStore().filters = {}
+  return true
+})
 export default router

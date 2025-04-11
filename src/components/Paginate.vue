@@ -1,0 +1,82 @@
+<template>
+    <div class="flex items-center justify-between bg-white px-4 py-3 sm:px-6">
+        <div class="flex flex-1 justify-between sm:hidden">
+            <a v-if="paginate_data.prev_page_url" href="#" @click.prevent="loadPrevData"
+                class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">Previous</a>
+            <a v-if="paginate_data.next_page_url" href="#" @click.prevent="loadNextData"
+                class="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">Next</a>
+        </div>
+        <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+            <div>
+                <p class="text-sm text-gray-700">
+                    Affichage de
+                    <span class="font-medium">{{ items.length }}</span>
+                    sur
+                    <span class="font-medium">{{ paginate_data.per_page }}</span> par page sur un total de
+                    of
+                    <span class="font-medium">{{ paginate_data.total }}</span>
+                    résultats
+                </p>
+            </div>
+            <div>
+                <nav class="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
+                    <a v-if="paginate_data.prev_page_url" @click.prevent="loadPrevData"
+                        class="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">
+                        <span class="sr-only">Previous</span>
+                        <svg class="size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd"
+                                d="M11.78 5.22a.75.75 0 0 1 0 1.06L8.06 10l3.72 3.72a.75.75 0 1 1-1.06 1.06l-4.25-4.25a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0Z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                    <!-- Current: "z-10 bg-indigo-600 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600", Default: "text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:outline-offset-0" -->
+                    <a v-if="paginate_data.from != paginate_data.last_page" v-for="i in paginate_data.last_page"
+                        @click.prevent="loadData(i)" href="#" aria-current="page"
+                        :class="i == paginate_data.current_page ? 'relative z-10 inline-flex items-center bg-indigo-600 px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600' : 'relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0'">{{
+                            i }}</a>
+                    <!-- <span
+                        class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-700 ring-1 ring-inset ring-gray-300 focus:outline-offset-0">...</span> -->
+                    <a v-if="paginate_data.next_page_url" href="#" @click.prevent="loadNextData"
+                        class="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">
+                        <span class="sr-only">Next</span>
+                        <svg class="size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd"
+                                d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script setup>
+import { useCrudStore } from '@/stores/crudStore';
+import { storeToRefs } from 'pinia';
+const crudStore = useCrudStore()
+const { paginate_data, items, url, filters } = storeToRefs(crudStore)
+const loadPrevData = () => {
+    filters.value = {}
+    url.value = paginate_data.value.prev_page_url
+    crudStore.index().then(() => {
+        url.value = url.value.split('?page')[0]
+    })
+}
+const loadData = (page_number) => {
+    filters.value = {}
+    url.value = paginate_data.value.path + '?page=' + Number(page_number)
+    crudStore.index().then(() => {
+        url.value = url.value.split('?page')[0]
+    })
+}
+const loadNextData = () => {
+    filters.value = {}
+    url.value = paginate_data.value.next_page_url
+    crudStore.index().then(() => {
+        url.value = url.value.split('?page')[0]
+    })
+}
+</script>
+
+<style lang="scss" scoped></style>

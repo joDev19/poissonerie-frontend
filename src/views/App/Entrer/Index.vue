@@ -6,18 +6,17 @@
                     <p class="font-bold">Mes entrés</p>
                     <p>Listes de mes entrés.</p>
                 </div>
-                <div class="flex w-full sm:w-auto items-center gap-3">
-                    <input type="text" class="border-2 p-2 rounded focus:outline-none" placeholder="Rechercher">
-                    <Button type-name="button" text="Ajouter" :loading="false" @click="open" />
-                </div>
+                <InputFilterByName @open="open" filterName="product_name" />
+
             </div>
             <div class="flex items-center gap-2">
-                <label class="my-2 text-blue-700 underline" for="showFiltre">Afficher les options de filtrage</label>
+                <img class="hidden lg:inline" src="../../../../public/icons/sort.png" alt="">
+                <label class="my-2 text-blue-700 underline" for="showFiltre">Filtrage</label>
                 <input type="checkbox" id="showFiltre" v-model="showFiltre">
 
             </div>
             <div class="" v-if="showFiltre">
-                <Filter />
+                <Filter :items="itemFilters" />
 
             </div>
             <div class="overflow-auto">
@@ -31,7 +30,8 @@
 import App from '@/components/Layout/App.vue';
 import { useModal } from 'vue-final-modal';
 import Button from '@/components/Button.vue';
-import Filter from '@/components/App/Entrer/Filter.vue';
+import InputFilterByName from '@/components/InputFilterByName.vue';
+import Filter from '@/components/Filter.vue';
 import EntrerList from '@/components/App/Entrer/EntrerList.vue';
 import CreateEntrer from '@/components/App/Entrer/CreateEntrer.vue';
 import { ref } from 'vue';
@@ -42,7 +42,21 @@ const { open, close } = useModal({
             close()
         }
     }
-}) 
+})
+const itemFilters = [
+    {
+        show: "Date de début",
+        value: "start_date",
+        type: "date",
+        filterData: null
+    },
+    {
+        show: "Date de fin",
+        value: "end_date",
+        type: "date",
+        filterData: null
+    }
+]
 const showFiltre = ref(false)
 </script>
 

@@ -6,13 +6,29 @@
                     Nom
                 </th>
                 <th class="pb-3 ps-5 text-start min-w-auto">
-                    Prix du kilo
+                    <div class="flex gap-1">
+                        <img class="hidden lg:inline" src="../../../../public/icons/price.png" alt="">
+                        Prix du kilo
+                    </div>
+
                 </th>
                 <th class="pb-3 ps-5 text-start min-w-auto">
-                    Prix du carton
+                    <div class="flex gap-1">
+                        <img class="hidden lg:inline" src="../../../../public/icons/price.png" alt="">
+                        Prix du carton
+                    </div>
                 </th>
-                <th class="pb-3 ps-5  text-start min-w-auto">
-                    Date de création
+                <th class="pb-3 ps-5 text-start min-w-auto">
+                    <div class="flex gap-1">
+                        <img class="hidden lg:inline" src="../../../../public/icons/kilo.png" alt=""> 
+                        <img class="hidden lg:inline" src="../../../../public/icons/carton.png" alt=""> Quantité disponible
+                    </div>
+                </th>
+                <th class="pb-3 ps-5 flex gap-1 text-start min-w-auto">
+                    <img class="hidden lg:inline" src="../../../../public/icons/calendar.png" alt=""> Date de création
+                </th>
+                <th class="pb-3 ps-5 text-start min-w-auto">
+                    Actions
                 </th>
             </tr>
         </thead>
@@ -22,10 +38,13 @@
                     {{ product.name }}
                 </td>
                 <td class="py-2 ps-5">
-                    {{ product.price_kilo }} xof
+                    {{ formatPrice(product.price_kilo) }}
                 </td>
                 <td class="py-2 ps-5">
-                    {{ product.price_carton }} xof
+                    {{ formatPrice(product.price_carton) }}
+                </td>
+                <td class="py-2 ps-5">
+                    {{ product.quantity.kg }} kg | {{ product.quantity.box }} carton(s)
                 </td>
                 <td class="py-2 ps-5">
                     {{ formatDate(product.created_at) }}
@@ -41,6 +60,7 @@
             </tr>
         </tbody>
     </table>
+    <Paginate />
 </template>
 
 <script setup>
@@ -50,7 +70,8 @@ import CreateProduit from './CreateProduct.vue';
 import ShowProduit from './ShowProduct.vue';
 import { useCrudStore } from '@/stores/crudStore';
 import { storeToRefs } from 'pinia';
-import { formatDate } from '@/helper';
+import { formatDate, formatPrice } from '@/helper';
+import Paginate from '@/components/Paginate.vue';
 import { onBeforeUnmount } from 'vue';
 const crudStore = useCrudStore()
 const { url, items: products } = storeToRefs(crudStore)

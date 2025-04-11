@@ -5,8 +5,14 @@
                 <th class="pb-3 ps-5 text-start min-w-auto">
                     Nom
                 </th>
-                <th class="pb-3 ps-5  text-start min-w-auto">
-                    Date de création
+                <th class="pb-3 ps-5 text-start min-w-auto">
+                    <div class="flex gap-1">
+                        <img class="hidden lg:inline" src="../../../../public/icons/calendar.png" alt=""> Date de
+                        création
+                    </div>
+                </th>
+                <th class="pb-3 ps-5 text-start min-w-auto">
+                    Action
                 </th>
             </tr>
         </thead>
@@ -29,6 +35,7 @@
             </tr>
         </tbody>
     </table>
+    <Paginate />
 </template>
 
 <script setup>
@@ -39,7 +46,8 @@ import ShowMarque from './ShowMarque.vue';
 import { useCrudStore } from '@/stores/crudStore';
 import { storeToRefs } from 'pinia';
 import { formatDate } from '@/helper';
-import { onBeforeUnmount } from 'vue';
+import { onBeforeUnmount, watch } from 'vue';
+import Paginate from '@/components/Paginate.vue';
 const crudStore = useCrudStore()
 const { url, items: marques } = storeToRefs(crudStore)
 url.value = "/api/marques"
@@ -82,6 +90,7 @@ const showDeleteModal = (id) => {
     crudStore.show(id);
     trashCommmand.open()
 }
+
 onBeforeUnmount(() => {
     marques.value = [];
 })

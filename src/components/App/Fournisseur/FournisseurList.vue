@@ -6,14 +6,33 @@
                     Nom
                 </th>
                 <th class="pb-3 ps-5  text-start min-w-auto">
-                    Date de création
+                    <div class="flex gap-1">
+                        <img class="hidden lg:inline" src="../../../../public/icons/call.png" alt="">
+                        Contact
+                    </div>
                 </th>
+                <th class="pb-3 ps-5 text-start min-w-auto">
+                    <div class="flex gap-1">
+                        <img class="hidden lg:inline" src="../../../../public/icons/home.png" alt="">
+                        Adresse
+                    </div>
+                </th>
+                <th class="pb-3 ps-5 flex gap-1 text-start min-w-auto">
+                    <img class="hidden lg:inline" src="../../../../public/icons/calendar.png" alt=""> Date de création
+                </th>
+                <th class="pb-3 ps-5 text-start min-w-auto">Actions</th>
             </tr>
         </thead>
         <tbody>
             <tr v-for="fournisseur in fournisseurs" :key="fournisseur.id" class="border-b-2">
                 <td class="py-2 ps-5">
                     {{ fournisseur.name }}
+                </td>
+                <td class="py-2 ps-5">
+                    {{ fournisseur.contact }}
+                </td>
+                <td class="py-2 ps-5">
+                    {{ fournisseur.adresse }}
                 </td>
                 <td class="py-2 ps-5">
                     {{ formatDate(fournisseur.created_at) }}
@@ -29,14 +48,16 @@
             </tr>
         </tbody>
     </table>
+    <Paginate />
 </template>
 
 <script setup>
 import { useModal } from 'vue-final-modal';
 import ConfirmDeletion from './ConfirmDeletion.vue';
 import CreateMarque from './CreateFournisseur.vue';
-import ShowMarque from './ShowFournisseur.vue';
+import ShowFournisseur from './ShowFournisseur.vue';
 import { useCrudStore } from '@/stores/crudStore';
+import Paginate from '@/components/Paginate.vue';
 import { storeToRefs } from 'pinia';
 import { formatDate } from '@/helper';
 import { onBeforeUnmount } from 'vue';
@@ -62,7 +83,7 @@ const updateCommand = useModal({
     }
 })
 const showCommand = useModal({
-    component: ShowMarque,
+    component: ShowFournisseur,
     attrs: {
         fournisseur: { name: "Jordy", created_at: "45" },
         onConfirm() {
@@ -75,7 +96,7 @@ const showUpdateModal = (id) => {
     updateCommand.open()
 }
 const showShowModal = (id) => {
-    crudStore.show(id);
+    crudStore.show(id, true);
     showCommand.open()
 }
 const showDeleteModal = (id) => {
