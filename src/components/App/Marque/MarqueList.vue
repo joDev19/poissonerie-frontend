@@ -1,37 +1,30 @@
 <template>
-    <table class="w-full mt-5 mb-5">
-        <thead class="border-b-2 w-full">
-            <tr>
-                <th class="pb-3 ps-5 text-start min-w-auto">
-                    Nom
-                </th>
-                <th class="pb-3 ps-5 text-start min-w-auto">
-                    <div class="flex gap-1">
-                        <img class="hidden lg:inline" src="../../../../public/icons/calendar.png" alt=""> Date de
-                        création
+    <table class="table-class">
+        <thead>
+            <tr class="">
+                <th class="td-start-table">Nom</th>
+                <th class="td-middle-table">
+                    <div class="flex items-center gap-2">
+                        <img class="hidden lg:inline w-4 h-4" src="../../../../public/icons/calendar.png" alt="">
+                        Date de création
                     </div>
                 </th>
-                <th class="pb-3 ps-5 text-start min-w-auto">
-                    Action
-                </th>
+                <th class="td-end-table">Action</th>
             </tr>
         </thead>
         <tbody>
-            <tr v-for="marque in marques" :key="marque.id" class="border-b-2">
-                <td class="py-2 ps-5">
-                    {{ marque.name }}
-                </td>
-                <td class="py-2 ps-5">
-                    {{ formatDate(marque.created_at) }}
-                </td>
-                <td class="py-2 ps-5 hover:cursor-pointer">
-                    <div class="flex gap-2">
-                        <i class="fa-solid fa-eye" @click.prevent="() => showShowModal(marque.id)"></i>
-                        <i class="fa-solid fa-pencil" @click.prevent="() => showUpdateModal(marque.id)"></i>
-                        <i class="fa-solid fa-trash" @click.prevent="() => showDeleteModal(marque.id)"></i>
+            <tr v-for="marque in marques" :key="marque.id" class="border rounded-lg">
+                <td class="td-start-table">{{ marque.name }}</td>
+                <td class="td-middle-table">{{ formatDate(marque.created_at) }}</td>
+                <td class="td-end-table">
+                    <div class="flex gap-3">
+                        <i class="fa-solid fa-eye cursor-pointer" @click.prevent="() => showShowModal(marque.id)"></i>
+                        <i v-if="checkIfUserIsAdmin()" class="fa-solid fa-pencil cursor-pointer"
+                            @click.prevent="() => showUpdateModal(marque.id)"></i>
+                        <i v-if="checkIfUserIsAdmin()" class="fa-solid fa-trash cursor-pointer"
+                            @click.prevent="() => showDeleteModal(marque.id)"></i>
                     </div>
                 </td>
-
             </tr>
         </tbody>
     </table>
@@ -45,7 +38,7 @@ import CreateMarque from './CreateMarque.vue';
 import ShowMarque from './ShowMarque.vue';
 import { useCrudStore } from '@/stores/crudStore';
 import { storeToRefs } from 'pinia';
-import { formatDate } from '@/helper';
+import { formatDate, checkIfUserIsAdmin } from '@/helper';
 import { onBeforeUnmount, watch } from 'vue';
 import Paginate from '@/components/Paginate.vue';
 const crudStore = useCrudStore()
@@ -72,7 +65,6 @@ const updateCommand = useModal({
 const showCommand = useModal({
     component: ShowMarque,
     attrs: {
-        marque: { name: "Jordy", created_at: "45" },
         onConfirm() {
             showCommand.close()
         }
@@ -83,7 +75,7 @@ const showUpdateModal = (id) => {
     updateCommand.open()
 }
 const showShowModal = (id) => {
-    crudStore.show(id);
+    crudStore.show(id, true);
     showCommand.open()
 }
 const showDeleteModal = (id) => {

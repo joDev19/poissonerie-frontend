@@ -11,9 +11,8 @@
                 <p class="text-sm text-gray-700">
                     Affichage de
                     <span class="font-medium">{{ items.length }}</span>
-                    sur
-                    <span class="font-medium">{{ paginate_data.per_page }}</span> par page sur un total de
-                    of
+                    à
+                    <span class="font-medium">{{ paginate_data.per_page }}</span> sur
                     <span class="font-medium">{{ paginate_data.total }}</span>
                     résultats
                 </p>

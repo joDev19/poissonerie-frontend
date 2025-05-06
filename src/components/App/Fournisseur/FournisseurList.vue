@@ -1,43 +1,43 @@
 <template>
-    <table class="w-full mt-5 mb-5">
+    <table class="table-class">
         <thead class="border-b-2 w-full">
             <tr>
-                <th class="pb-3 ps-5 text-start min-w-auto">
+                <th class="td-start-table">
                     Nom
                 </th>
-                <th class="pb-3 ps-5  text-start min-w-auto">
+                <th class="td-middle-table">
                     <div class="flex gap-1">
                         <img class="hidden lg:inline" src="../../../../public/icons/call.png" alt="">
                         Contact
                     </div>
                 </th>
-                <th class="pb-3 ps-5 text-start min-w-auto">
+                <th class="td-middle-table">
                     <div class="flex gap-1">
                         <img class="hidden lg:inline" src="../../../../public/icons/home.png" alt="">
                         Adresse
                     </div>
                 </th>
-                <th class="pb-3 ps-5 flex gap-1 text-start min-w-auto">
+                <th class="td-middle-table">
                     <img class="hidden lg:inline" src="../../../../public/icons/calendar.png" alt=""> Date de création
                 </th>
-                <th class="pb-3 ps-5 text-start min-w-auto">Actions</th>
+                <th class="td-end-table">Actions</th>
             </tr>
         </thead>
         <tbody>
             <tr v-for="fournisseur in fournisseurs" :key="fournisseur.id" class="border-b-2">
-                <td class="py-2 ps-5">
+                <td class="td-start-table">
                     {{ fournisseur.name }}
                 </td>
-                <td class="py-2 ps-5">
+                <td class="td-middle-table">
                     {{ fournisseur.contact }}
                 </td>
-                <td class="py-2 ps-5">
+                <td class="td-middle-table">
                     {{ fournisseur.adresse }}
                 </td>
-                <td class="py-2 ps-5">
+                <td class="td-middle-table">
                     {{ formatDate(fournisseur.created_at) }}
                 </td>
-                <td class="py-2 ps-5 hover:cursor-pointer">
+                <td class="td-end-table hover:cursor-pointer">
                     <div class="flex gap-2">
                         <i class="fa-solid fa-eye" @click.prevent="() => showShowModal(fournisseur.id)"></i>
                         <i class="fa-solid fa-pencil" @click.prevent="() => showUpdateModal(fournisseur.id)"></i>

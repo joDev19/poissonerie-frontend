@@ -25,18 +25,27 @@
                             </select>
                         </div>
                     </div>
-                    <div class="lg:flex lg:gap-3">
-                        <div class="w-full">
-                            <label for="quantite" class="label">Quantité en carton</label>
-                            <input type="number" v-model="entrer.box_quantity" name="quantite" class="input"
-                                id="quantite">
+                    <div v-if="entrer.product_id" class="lg:flex lg:gap-3">
+                        <div v-if="checkIfProductIsSellByKilo()" class="lg:flex lg:gap-3 lg:w-2/3">
+                            <div class="w-full">
+                                <label for="quantite" class="label">Quantité en carton</label>
+                                <input type="number" v-model="entrer.box_quantity" name="quantite" class="input"
+                                    id="quantite">
+                            </div>
+                            <div class="w-full">
+                                <label for="quantite" class="label">Quantité en kilo</label>
+                                <input type="number" step="0.01" v-model="entrer.kilo_quantity" name="quantite"
+                                    class="input" id="quantite">
+                            </div>
                         </div>
-                        <div class="w-full">
-                            <label for="quantite" class="label">Quantité en kilo</label>
-                            <input type="number" step="0.01" v-model="entrer.kilo_quantity" name="quantite"
-                                class="input" id="quantite">
+                        <div v-else class="lg:flex lg:gap-3 lg:w-1/2">
+                            <div class="w-full">
+                                <label for="quantite" class="label">Quantité</label>
+                                <input type="number" v-model="entrer.unit_quantity" name="quantite" class="input"
+                                    id="quantite">
+                            </div>
                         </div>
-                        <div class="w-full">
+                        <div class="w-full" :class="checkIfProductIsSellByKilo() ? 'lg:w-1/3' : 'lg:w-1/2'">
                             <label for="quantite" class="label">Prix</label>
                             <input type="number" step="0.01" name="quantite" v-model="entrer.price" class="input"
                                 id="quantite">
@@ -78,7 +87,7 @@
 <script setup>
 import { VueFinalModal } from 'vue-final-modal';
 import Button from '../../Button.vue';
-import { onUnmounted, ref } from 'vue';
+import { onUnmounted, ref, watch } from 'vue';
 import ModalLoader from '@/components/ModalLoader.vue';
 import { storeToRefs } from 'pinia';
 import { useCrudStore } from '@/stores/crudStore';
@@ -118,6 +127,14 @@ const handleSubmit = () => {
     }
     emits("confirm")
 }
+const checkIfProductIsSellByKilo = () => {
+    return createData.value.products.find(p => p.id == entrer.value.product_id).category == 'kilo_ou_carton'
+}
+watch(() => entrer.value.product_id, (newProductId) => {
+    delete entrer.value.unit_quantity
+    delete entrer.value.box_quantity
+    delete entrer.value.kilo_quantity
+})
 onUnmounted(() => {
     entrer.value = {}
 })

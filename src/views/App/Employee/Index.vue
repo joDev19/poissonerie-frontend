@@ -2,8 +2,9 @@
     <App>
         <div class="p-5 lg:w-full lg:mx-auto">
             <div class="lg:flex lg:mb-3">
-                <MiniTitle text="Mes entrés" />
-                <InputFilterByName @open="open" filterName="product_name" />
+                <MiniTitle text="Mes employés" />
+
+                <InputFilterByName @open="open" filterName="name" />
 
             </div>
             <div class="flex items-center gap-2">
@@ -17,7 +18,7 @@
 
             </div>
             <div class="overflow-auto">
-                <EntrerList />
+                <EmployeeList />
             </div>
         </div>
     </App>
@@ -27,13 +28,13 @@
 import App from '@/components/Layout/App.vue';
 import { useModal } from 'vue-final-modal';
 import InputFilterByName from '@/components/InputFilterByName.vue';
-import Filter from '@/components/Filter.vue';
-import EntrerList from '@/components/App/Entrer/EntrerList.vue';
 import MiniTitle from '@/components/MiniTitle.vue';
-import CreateEntrer from '@/components/App/Entrer/CreateEntrer.vue';
+import Filter from '@/components/Filter.vue';
+import EmployeeList from '@/components/App/Employee/EmployeeList.vue';
+import CreateEmployee from '@/components/App/Employee/CreateEmployee.vue';
 import { ref } from 'vue';
 const { open, close } = useModal({
-    component: CreateEntrer,
+    component: CreateEmployee,
     attrs: {
         onConfirm() {
             close()
@@ -41,18 +42,18 @@ const { open, close } = useModal({
     }
 })
 const itemFilters = [
-    {
-        show: "Date de début",
-        value: "start_date",
-        type: "date",
-        filterData: null
-    },
-    {
-        show: "Date de fin",
-        value: "end_date",
-        type: "date",
-        filterData: null
-    }
+    // {
+    //     show: "Date de début",
+    //     value: "start_date",
+    //     type: "date",
+    //     filterData: null
+    // },
+    // {
+    //     show: "Date de fin",
+    //     value: "end_date",
+    //     type: "date",
+    //     filterData: null
+    // }
 ]
 const showFiltre = ref(false)
 </script>

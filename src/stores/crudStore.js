@@ -15,19 +15,19 @@ export const useCrudStore = defineStore('crud', {
         async index() {
             useLoaderStore().active = true;
             try {
-                try {
-                    const searchs = new URLSearchParams(this.filters)
-                    const res = await client.get(`${this.url}${searchs == '' ? '' : `?${searchs}`}`);
-                    this.paginate_data = res.data
-                    this.items = this.paginate_data.data;
-                    delete this.paginate_data.data
-                } catch (err) {
-                    console.log(err);
-                }
+                const searchs = new URLSearchParams(this.filters)
+                const res = await client.get(`${this.url}${searchs == '' ? '' : `?${searchs}`}`);
+                this.paginate_data = res.data
+                this.items = this.paginate_data.data;
+                delete this.paginate_data.data
+            } catch (err) {
+                console.log(err);
             } finally {
-                return useLoaderStore().active = false;
+                useLoaderStore().active = false
             }
+
         },
+
         show(id, needToRequest = false) {
             useLoaderStore().active = true;
             const data = needToRequest ? null : this.items.find(el => el.id == id);
@@ -52,7 +52,9 @@ export const useCrudStore = defineStore('crud', {
             } catch (err) {
                 return console.log(err);
             }
-            //.finally(() => useLoaderStore().active = false)
+            finally {
+                useLoaderStore().active = false
+            }
         },
         async create() {
             useLoaderStore().active = true;
@@ -89,7 +91,7 @@ export const useCrudStore = defineStore('crud', {
         },
         resetFilter() {
             this.filters = {}
-            this.index();
+            // this.index();
         }
     }
 })

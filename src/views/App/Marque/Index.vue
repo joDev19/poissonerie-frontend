@@ -1,18 +1,18 @@
 <template>
     <App>
-        <div class="p-5 lg:w-5/6 lg:mx-auto">
+        <div class="p-5 lg:w-full lg:mx-auto">
             <div class="lg:flex lg:mb-3">
                 <div class="sm:w-full">
-                    <p class="font-bold">Mes Catégories</p>
-                    <p>Listes de mes catégories.</p>
+                    <p class=" text-2xl">Mes Catégories</p>
+                    <!-- <p>Listes de mes catégories.</p> -->
                 </div>
-                <InputFilterByName @open="open" />
+                <InputFilterByName @open="open" :disabled-add-button="!checkIfUserIsAdmin()" />
             </div>
             <div>
                 <div class="flex items-center gap-2">
-                    <img class="hidden lg:inline" src="../../../../public/icons/sort.png" alt="">
-                    <label class="my-2 text-blue-700 underline" for="showFiltre"> Filtrage</label>
-                    <input type="checkbox" id="showFiltre" v-model="showFiltre">
+                    <!-- <img class="hidden lg:inline" src="../../../../public/icons/sort.png" alt=""> -->
+                    <input type="checkbox" class="input-checkbox" id="showFiltre" v-model="showFiltre">
+                    <label class="my-2 text-xl" for="showFiltre"> Filtrage</label>
                 </div>
                 <div class="" v-if="showFiltre">
                     <Filter :items="filterItems" />
@@ -33,6 +33,7 @@ import Filter from '@/components/Filter.vue';
 import MarqueList from '@/components/App/Marque/MarqueList.vue';
 import InputFilterByName from '@/components/InputFilterByName.vue';
 import CreateMarque from '@/components/App/Marque/CreateMarque.vue';
+import { checkIfUserIsAdmin } from '@/helper';
 import { ref } from 'vue';
 const filterItems = [
     {

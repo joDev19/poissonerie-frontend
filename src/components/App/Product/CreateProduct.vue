@@ -18,18 +18,39 @@
                         </select>
                     </div>
                 </div>
-                <div class="lg:flex">
-                    <div class="w-full">
-                        <label for="price" class="label">Prix du kilo</label>
-                        <input type="number" step="0.10" v-model="produit.price_kilo" class="input" id="price">
+                <div class="flex gap-5 my-2">
+                    <div class="flex items-center p-1 gap-1">
+                        <input type="radio" v-model="produit.category" value="kilo_ou_carton" name="category" id="kilo_ou_carton"
+                            class="input-checkbox"> <label for="kilo_ou_carton">À vendre au kilo ou carton</label>
+                    </div>
+                    <div class="flex items-center p-1 gap-1">
+                        <input type="radio" v-model="produit.category" value="unite" name="category" id="unite"
+                            class="input-checkbox"> <label for="unite">À
+                            vendre par unité</label>
                     </div>
                 </div>
-                <div class="lg:flex">
-                    <div class="w-full">
-                        <label for="price" class="label">Prix du carton</label>
-                        <input type="number" step="0.10" v-model="produit.price_carton" class="input" id="price">
+                <template v-if="produit.category == 'kilo_ou_carton'">
+                    <div class="lg:flex">
+                        <div class="w-full">
+                            <label for="price" class="label">Prix du kilo</label>
+                            <input type="number" step="0.10" v-model="produit.price_kilo" class="input" id="price">
+                        </div>
                     </div>
-                </div>
+                    <div class="lg:flex">
+                        <div class="w-full">
+                            <label for="price" class="label">Prix du carton</label>
+                            <input type="number" step="0.10" v-model="produit.price_carton" class="input" id="price">
+                        </div>
+                    </div>
+                </template>
+                <template v-if="produit.category == 'unite'">
+                    <div class="lg:flex">
+                        <div class="w-full">
+                            <label for="price" class="label">Prix unitaire</label>
+                            <input type="number" step="0.10" v-model="produit.price_unit" class="input" id="price">
+                        </div>
+                    </div>
+                </template>
             </form>
         </div>
         <div class="flex justify-center">
@@ -47,7 +68,7 @@
 <script setup>
 import { VueFinalModal } from 'vue-final-modal';
 import Button from '../../Button.vue';
-import { onBeforeMount, onUnmounted, ref } from 'vue';
+import { onBeforeMount, onUnmounted, ref, watch } from 'vue';
 import { useCrudStore } from '@/stores/crudStore';
 import { storeToRefs } from 'pinia';
 const crudStore = useCrudStore()
@@ -72,6 +93,19 @@ onUnmounted(() => {
     produit.value = {}
     if (isUpdate.value)
         crudStore.index();
+})
+watch(() => produit.value.category, (newCategory) => {
+    if (isUpdate.value) {
+        //
+    } else {
+        if (newCategory == "unite") {
+            delete produit.value.price_carton
+            delete produit.value.price_kilo
+        } else {
+            delete produit.value.price_unit
+        }
+        
+    }
 })
 
 </script>

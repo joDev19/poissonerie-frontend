@@ -2,10 +2,15 @@
     <VueFinalModal class="flex justify-center items-center p-5"
         content-class="flex flex-col p-4 bg-white  rounded-lg space-y-2 w-full sm:w-3/5">
         <div class="rounded-lg p-4">
-            <p class="font-bold flex gap-1"> <img src="../../../../public/icons/categorie-black.png" alt=""> Informations sur cette marque</p>
+            <p class="font-bold flex gap-1"> <img src="../../../../public/icons/categorie-black.png" alt="">
+                Informations sur cette marque</p>
             <div class="border-b  p-2 my-2 sm:flex sm:items-center">
                 <p class="font-bold sm:w-2/5">Nom</p>
                 <p class="sm:w-3/5">{{ marque.name }}</p>
+            </div>
+            <div class="border-b  p-2 my-2 sm:flex sm:items-center">
+                <p class="font-bold sm:w-2/5">Nombre de produits</p>
+                <p v-if="marque.products" class="sm:w-3/5">{{ marque.products?.length }}</p>
             </div>
             <div class="border-b  p-2 my-2 sm:flex sm:items-center">
                 <p class="font-bold sm:w-2/5">Date de création</p>

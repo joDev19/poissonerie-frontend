@@ -1,59 +1,79 @@
 <template>
-    <table class="w-full mt-5 mb-5">
+    <table class="table-class">
         <thead class="border-b-2 w-full">
             <tr>
-                <th class="pb-3 ps-5 text-start min-w-auto">
+                <th class="td-start-table">
                     Nom
                 </th>
-                <th class="pb-3 ps-5 text-start min-w-auto">
+                <th class="td-middle-table">
                     <div class="flex gap-1">
-                        <img class="hidden lg:inline" src="../../../../public/icons/price.png" alt="">
+                        <img class="hidden xl:inline" src="../../../../public/icons/price.png" alt="">
                         Prix du kilo
                     </div>
 
                 </th>
-                <th class="pb-3 ps-5 text-start min-w-auto">
+                <th class="td-middle-table">
                     <div class="flex gap-1">
-                        <img class="hidden lg:inline" src="../../../../public/icons/price.png" alt="">
+                        <img class="hidden xl:inline" src="../../../../public/icons/price.png" alt="">
                         Prix du carton
                     </div>
                 </th>
-                <th class="pb-3 ps-5 text-start min-w-auto">
+                <th class="td-middle-table">
                     <div class="flex gap-1">
-                        <img class="hidden lg:inline" src="../../../../public/icons/kilo.png" alt=""> 
-                        <img class="hidden lg:inline" src="../../../../public/icons/carton.png" alt=""> Quantité disponible
+                        <img class="hidden xl:inline" src="../../../../public/icons/price.png" alt="">
+                        Prix unitaire
                     </div>
                 </th>
-                <th class="pb-3 ps-5 flex gap-1 text-start min-w-auto">
-                    <img class="hidden lg:inline" src="../../../../public/icons/calendar.png" alt=""> Date de création
+                <th class="td-middle-table">
+                    <div class="flex gap-1">
+                        <img class="hidden xl:inline" src="../../../../public/icons/kilo.png" alt="">
+                        <img class="hidden xl:inline" src="../../../../public/icons/carton.png" alt=""> Quantité
+                        disponible
+                    </div>
                 </th>
-                <th class="pb-3 ps-5 text-start min-w-auto">
+                <th class="td-middle-table">
+                    <img class="hidden xl:inline" src="../../../../public/icons/calendar.png" alt=""> Date de création
+                </th>
+                <th class="td-end-table">
                     Actions
                 </th>
             </tr>
         </thead>
         <tbody>
-            <tr v-for="product in products" :key="product.id" class="border-b-2">
-                <td class="py-2 ps-5">
+            <tr v-for="product in products" :key="product.id" class="border-b-2"
+                :class="checkIfProductIsUnderSolde(product) ? (checkIfProductIsOver(product) ? 'bg-red-100' : 'bg-yellow-100') :''">
+                <td class="td-start-table">
                     {{ product.name }}
                 </td>
-                <td class="py-2 ps-5">
-                    {{ formatPrice(product.price_kilo) }}
+                <td class="td-middle-table">
+                    <span v-if="product.price_kilo == 0">_</span> <span v-else>{{ formatPrice(product.price_kilo)
+                        }}</span>
                 </td>
-                <td class="py-2 ps-5">
-                    {{ formatPrice(product.price_carton) }}
+                <td class="td-middle-table">
+                    <span v-if="product.price_carton == 0">_</span> <span v-else>{{ formatPrice(product.price_carton)
+                        }}</span>
                 </td>
-                <td class="py-2 ps-5">
-                    {{ product.quantity.kg }} kg | {{ product.quantity.box }} carton(s)
+                <td class="td-middle-table">
+                    <span v-if="product.price_unit == 0">_</span> <span v-else>{{ formatPrice(product.price_unit)
+                        }}</span>
                 </td>
-                <td class="py-2 ps-5">
+                <td class="td-middle-table">
+                    <span v-if="product.category=='kilo_ou_carton'">
+                        {{ product?.quantity?.kg }} kg | {{ product?.quantity?.box }} carton(s)
+                    </span>
+                    <span v-else>
+                        {{ product?.quantity?.unit }} unités
+                    </span>
+                </td>
+                <td class="td-middle-table">
                     {{ formatDate(product.created_at) }}
                 </td>
-                <td class="py-2 ps-5 hover:cursor-pointer">
+                <td class="td-end-table hover:cursor-pointer">
                     <div class="flex gap-2">
                         <i class="fa-solid fa-eye" @click.prevent="() => showShowModal(product.id)"></i>
                         <i class="fa-solid fa-pencil" @click.prevent="() => showUpdateModal(product.id)"></i>
-                        <i class="fa-solid fa-trash" @click.prevent="() => showDeleteModal(product.id)"></i>
+                        <i v-if="checkIfUserIsAdmin()" class="fa-solid fa-trash"
+                            @click.prevent="() => showDeleteModal(product.id)"></i>
                     </div>
                 </td>
 
@@ -70,9 +90,8 @@ import CreateProduit from './CreateProduct.vue';
 import ShowProduit from './ShowProduct.vue';
 import { useCrudStore } from '@/stores/crudStore';
 import { storeToRefs } from 'pinia';
-import { formatDate, formatPrice } from '@/helper';
+import { formatDate, formatPrice, checkIfUserIsAdmin, checkIfProductIsOver, checkIfProductIsUnderSolde } from '@/helper';
 import Paginate from '@/components/Paginate.vue';
-import { onBeforeUnmount } from 'vue';
 const crudStore = useCrudStore()
 const { url, items: products } = storeToRefs(crudStore)
 url.value = "/api/products"
@@ -97,7 +116,6 @@ const updateCommand = useModal({
 const showCommand = useModal({
     component: ShowProduit,
     attrs: {
-        product: { name: "Jordy", created_at: "45" },
         onConfirm() {
             showCommand.close()
         }
@@ -115,9 +133,10 @@ const showDeleteModal = (id) => {
     crudStore.show(id);
     trashCommmand.open()
 }
-onBeforeUnmount(() => {
-    products.value = [];
-})
+// onBeforeUnmount(() => {
+//     products.value = [];
+// })
+
 </script>
 
 <style lang="scss" scoped></style>

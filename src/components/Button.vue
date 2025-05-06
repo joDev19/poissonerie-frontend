@@ -1,6 +1,6 @@
 <template>
-    <button :type="typeName"
-        class="flex w-full justify-center rounded-md px-3 py-1.5 font-semibold text-white shadow-xs" :class="`${bgColor} hover:${bgHoverColor}`" >
+    <button :disabled="disabled" :type="typeName"
+        class="flex w-full justify-center rounded-md px-3 py-1.5 font-semibold text-white shadow-xs" :class=" disabled ? 'bg-blue-200 hover:cursor-not-allowed' :`${bgColor} hover:${bgHoverColor}`" >
         <template v-if="loading">
             <Spinner />
         </template>
@@ -23,6 +23,10 @@ const props = defineProps({
     bgHoverColor: {
         type: String,
         default: 'bg-blue-500',
+    },
+    disabled: {
+        type: Boolean,
+        default: false,
     }
 })
 </script>

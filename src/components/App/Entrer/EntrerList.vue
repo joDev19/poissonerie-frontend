@@ -1,31 +1,37 @@
 <template>
-    <table class="w-full mt-5 mb-5">
+    <table class="table-class">
         <thead class="border-b-2 w-full">
             <tr>
-                <th class="pb-3 ps-5 text-start  min-w-auto">
+                <th class="td-start-table">
                     Produit
                 </th>
 
 
-                <th class="pb-3 ps-5 text-start  min-w-auto">
+                <th class="td-middle-table">
                     <div class="flex gap-1">
-                        <img class="hidden lg:inline" src="../../../../public/icons/carton.png" alt=""> Quantité de
+                        <img class="hidden lg:inline" src="../../../../public/icons/carton.png" alt="">Quantité de
                         carton
                     </div>
 
                 </th>
-                <th class="pb-3 ps-5 text-start  min-w-auto">
+                <th class="td-middle-table">
                     <div class="flex gap-1">
-                        <img class="hidden lg:inline" src="../../../../public/icons/kilo.png" alt=""> Nombre de
+                        <img class="hidden lg:inline" src="../../../../public/icons/carton.png" alt="">Quantité
+                    </div>
+
+                </th>
+                <th class="td-middle-table">
+                    <div class="flex gap-1">
+                        <img class="hidden lg:inline" src="../../../../public/icons/kilo.png" alt="">Nombre de
                         Kilograme
                     </div>
                 </th>
-                <th class="pb-3 ps-5 text-start  min-w-auto">
+                <th class="td-middle-table">
                     <div class="flex gap-1">
-                        <img class="hidden lg:inline" src="../../../../public/icons/price.png" alt=""> Prix
+                        <img class="hidden lg:inline" src="../../../../public/icons/price.png" alt="">Prix
                     </div>
                 </th>
-                <th class="pb-3 ps-5 text-start  min-w-auto">
+                <th class="td-end-table">
                     Actions
                 </th>
             </tr>
@@ -35,20 +41,24 @@
                 <!-- <td class="py-2 ps-5 ">
                     {{ formatDate(new Date(entrer.date)) }}
                 </td> -->
-                <td class="py-2 ps-5 ">
+                <td class="td-start-table">
                     {{ entrer.product?.name }}
                 </td>
 
-                <td class="py-2 ps-5 ">
+                <td class="td-middle-table">
                     {{ entrer.box_quantity }}
                 </td>
-                <td class="py-2 ps-5 ">
+                <td class="td-middle-table">
+                    <!-- {{ entrer.unit_quantity }} -->
+                    <span v-if="entrer.unit_quantity == 0">_</span> <span v-else>{{ entrer.unit_quantity }}</span>
+                </td>
+                <td class="td-middle-table">
                     {{ entrer.kilo_quantity }}
                 </td>
-                <td class="py-2 ps-5 ">
+                <td class="td-middle-table">
                     {{ formatPrice(entrer.price) }}
                 </td>
-                <td class="py-2 ps-5  hover:cursor-pointer">
+                <td class="td-end-table  hover:cursor-pointer">
                     <div class="flex gap-2">
                         <i class="fa-solid fa-eye" @click.prevent="showShowModal(entrer.id)"></i>
                         <i class="fa-solid fa-pencil" @click.prevent="showUpdateModal(entrer.id)"></i>

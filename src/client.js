@@ -17,17 +17,17 @@ client.interceptors.response.use(function (response) {
     // Do something with response data
     return response;
 }, function (error) {
-    Swal.fire({
-        title: 'Une erreur s\'est produite',
-        text: error.response.data.message,
-        icon: 'error',
-        confirmButtonText: 'OK'
-    }).then(() => {
-        if (error.status === 401)
-            router.push({ 'name': 'login' })
-    })
+    if (error.status === 401) {
+        router.push({ 'name': 'login' })
+    } else {
+        Swal.fire({
+            title: 'Une erreur s\'est produite',
+            text: error.response.data.message,
+            icon: 'error',
+            confirmButtonText: 'OK'
+        })
+    }
     return Promise.reject(error);
-});
-
+})
 export default client;
 
