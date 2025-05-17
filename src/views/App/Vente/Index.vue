@@ -1,10 +1,10 @@
 <template>
     <App>
-        <div class="p-5 lg:w-full lg:mx-auto">
+        <div class="p-5 w-full lg:mx-auto">
             <template v-if="step === 1">
                 <div class="lg:flex lg:mb-3">
                     <MiniTitle text="Mes ventes" />
-                    <InputFilterByName @open="venteStore.increment()" filterName="product_name" />
+                    <InputFilterByName @open="venteStore.increment()" filterName="product_name_vente" />
                 </div>
                 <div class="flex items-center gap-2">
                     <!-- <img class="hidden lg:inline" src="../../../../public/icons/sort.png" alt=""> -->

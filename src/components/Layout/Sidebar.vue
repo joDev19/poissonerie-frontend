@@ -9,8 +9,15 @@
                 <ul>
                     <li class="my-1">
                         <RouterLink class="flex items-center justify-start gap-3 py-4 px-2 rounded-lg hover:bg-blue-800"
-                            :to="{ name: 'marque' }" active-class="bg-blue-800">
+                            :to="{ name: 'dashboard' }" active-class="bg-blue-800">
                             <!-- <i class="fa-solid fa-arrow-left w-1/8" style="color:#fff;"></i> -->
+                            <LayoutDashboard class="w-10 px-2 text-white" />
+                            <p class="w-7/8 text-white text-lg font-semibold">Tableau de bord</p>
+                        </RouterLink>
+                    </li>
+                    <li class="my-1">
+                        <RouterLink class="flex items-center justify-start gap-3 py-4 px-2 rounded-lg hover:bg-blue-800"
+                            :to="{ name: 'marque' }" active-class="bg-blue-800">
                             <img src="../../../public/icons/categorie.png" class="w-10 px-2" alt="">
                             <p class="w-7/8 text-white text-lg font-semibold">Gérer les catégories</p>
                         </RouterLink>
@@ -85,7 +92,7 @@
 <script setup>
 import { RouterLink } from 'vue-router';
 import { checkIfUserIsAdmin } from '@/helper';
-
+import { LayoutDashboard } from 'lucide-vue-next';
 </script>
 
 <style lang="scss" scoped></style>

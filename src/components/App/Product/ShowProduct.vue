@@ -26,7 +26,14 @@
             </div>
             <div class="border-b  p-2 my-2 sm:flex sm:items-center">
                 <p class="font-bold sm:w-2/5">Quantité disponible</p>
-                <p class="sm:w-3/5">{{ produit.quantity.kg }} kg | {{ produit.quantity.box }} cartons(s)</p>
+                <p class="sm:w-3/5">
+                    <span v-if="produit.category == 'unite'">
+                        {{ produit.quantity.unit }} unités
+                    </span>
+                    <span v-else>
+                        {{ produit.quantity.kg }} kg | {{ produit.quantity.box }} cartons(s)
+                    </span>
+                </p>
             </div>
             <div class="border-b  p-2 my-2 sm:flex sm:items-center">
                 <p class="font-bold sm:w-2/5">Marque</p>

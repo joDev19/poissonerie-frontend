@@ -55,7 +55,7 @@
                         <span v-if="vente.type == 'detail'">kg</span>
                         <span v-if="vente.type == 'gros'">carton<span v-show="vente.quantity > 1">s</span></span>
                     </template>
-                </td> -->
+</td> -->
                 <td class="td-middle-table">
                     {{ formatPrice(vente.total_price) }}
                 </td>
@@ -72,13 +72,13 @@
                 </td>
 
             </tr>
-            <div class="mt-5">
-                <p>Total des ventes: {{
-                    formatPrice(ventes.map(v => v.total_price).reduce((currentValue, acc) => currentValue + acc, 0))
-                    }}</p>
-            </div>
         </tbody>
     </table>
+    <div class="mt-5 w-full">
+        <p>Total des ventes: {{
+            formatPrice(ventes.map(v => v.total_price).reduce((currentValue, acc) => currentValue + acc, 0))
+        }}</p>
+    </div>
     <Paginate />
 </template>
 

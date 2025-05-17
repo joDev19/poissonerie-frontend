@@ -8,6 +8,7 @@ import IndexVente from '@/views/App/Vente/Index.vue'
 import Profile from '@/views/App/User/Profile.vue'
 import IndexEmployee from '@/views/App/Employee/Index.vue'
 import IndexProduct from "@/views/App/Product/Index.vue"
+import Dashboard from '@/views/App/Dashboard.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -62,6 +63,10 @@ const router = createRouter({
       path: '/employee/dashboard',
       name: "employee",
       component: IndexEmployee,
+    }, {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: Dashboard,
     }
   ],
 })

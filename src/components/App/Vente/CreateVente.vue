@@ -1,7 +1,7 @@
 <template>
     <p class="text-xl font-bold">Formulaire de vente en {{ vente.type }}</p>
     <div class="xl:flex w-full xl:gap-3">
-        <form v-if="!loaderStore.active" class="space-y-3 w-1/2" @submit.prevent="handleSubmit">
+        <form v-if="!loaderStore.active" class="space-y-3 lg:w-1/2" @submit.prevent="handleSubmit">
             <div class="lg:flex lg:gap-3">
                 <div class="w-full lg:w-1/2">
                     <label for="date" class="label">Date</label>

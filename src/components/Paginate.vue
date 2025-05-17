@@ -12,8 +12,8 @@
                     Affichage de
                     <span class="font-medium">{{ items.length }}</span>
                     à
-                    <span class="font-medium">{{ paginate_data.per_page }}</span> sur
-                    <span class="font-medium">{{ paginate_data.total }}</span>
+                    <!-- <span class="font-medium">{{ paginate_data.per_page }}</span>  --> sur
+                    <span class="font-medium">{{ paginate_data.total || paginate_data.meta?.total  }}</span>
                     résultats
                 </p>
             </div>
@@ -32,7 +32,7 @@
                     <a v-if="paginate_data.from != paginate_data.last_page" v-for="i in paginate_data.last_page"
                         @click.prevent="loadData(i)" href="#" aria-current="page"
                         :class="i == paginate_data.current_page ? 'relative z-10 inline-flex items-center bg-indigo-600 px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600' : 'relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0'">{{
-                            i }}</a>
+                        i }}</a>
                     <!-- <span
                         class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-700 ring-1 ring-inset ring-gray-300 focus:outline-offset-0">...</span> -->
                     <a v-if="paginate_data.next_page_url" href="#" @click.prevent="loadNextData"

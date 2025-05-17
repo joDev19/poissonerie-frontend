@@ -39,7 +39,7 @@
                 <p class="text-sm sm:w-3/5">{{ formatDate(vente.created_at) }}</p>
             </div>
             <div class="rounded p-2 my-2 sm:flex sm:items-center">
-                <button class="bg-blue-400 p-1 rounded text-white font-bold flex gap-1">Voir la facture
+                <button class="bg-blue-400 p-1 rounded text-white font-bold flex gap-1" @click.prevent="seeInvoice">Voir la facture
                     <FileMinus />
                 </button>
             </div>
@@ -64,6 +64,9 @@ import { formatDate, formatPrice } from '@/helper';
 const crudStore = useCrudStore()
 const emits = defineEmits(['confirm'])
 const { item: vente } = storeToRefs(crudStore)
+const seeInvoice = () => {
+    window.open(`http://localhost:8000/${vente.value.invoice}`, '_blank')
+}
 onUnmounted(() => {
     vente.value = {}
 })
