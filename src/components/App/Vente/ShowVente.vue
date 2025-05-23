@@ -26,8 +26,8 @@
 
             <div class="border-b  p-2 my-2 sm:flex sm:items-center">
                 <p class="font-bold sm:w-2/5">Type de vente</p>
-                <p class="text-sm sm:w-3/5">{{vente?.selled_products.some(el => el.type_achat== "detail") ? "Détail" :
-                    "Gros" }}</p>
+                <p class="text-sm sm:w-3/5">{{vente?.selled_products.some(el => el.type_achat == "detail") ? "Détail" :
+                    "Gros"}}</p>
             </div>
 
             <div class="border-b  p-2 my-2 sm:flex sm:items-center">
@@ -39,7 +39,8 @@
                 <p class="text-sm sm:w-3/5">{{ formatDate(vente.created_at) }}</p>
             </div>
             <div class="rounded p-2 my-2 sm:flex sm:items-center">
-                <button class="bg-blue-400 p-1 rounded text-white font-bold flex gap-1" @click.prevent="seeInvoice">Voir la facture
+                <button class="bg-blue-400 p-1 rounded text-white font-bold flex gap-1" @click.prevent="seeInvoice">Voir
+                    la facture
                     <FileMinus />
                 </button>
             </div>
@@ -65,7 +66,8 @@ const crudStore = useCrudStore()
 const emits = defineEmits(['confirm'])
 const { item: vente } = storeToRefs(crudStore)
 const seeInvoice = () => {
-    window.open(`http://localhost:8000/${vente.value.invoice}`, '_blank')
+    // window.open(`http://localhost:8000/${vente.value.invoice}`, '_blank')
+    window.open(`https://heron-bright-shad.ngrok-free.app/${vente.value.invoice}`, '_blank')
 }
 onUnmounted(() => {
     vente.value = {}

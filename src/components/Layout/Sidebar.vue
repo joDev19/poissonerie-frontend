@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full h-screen flex fixed top-0 flex hidden lg:block lg:w-1/5 z-5" id="sideBar">
+    <div class="w-full h-screen flex fixed top-0 flex hidden lg:block lg:w-1/5 z-5 oversize:auto" id="sideBar">
         <div class="w-5/6 sm:w-96 h-full bg-blue-700 lg:w-full">
             <div class="p-5 ">
                 <!-- <img src="" alt="Logo"> -->
