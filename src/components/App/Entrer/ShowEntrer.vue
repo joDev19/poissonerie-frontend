@@ -29,7 +29,7 @@
             </div>
             <div class="border-b  p-2 my-2 sm:flex sm:items-center">
                 <p class="font-bold sm:w-2/5">Prix</p>
-                <p class="text-sm sm:w-3/5">{{ entrer.price }} fcfa</p>
+                <p class="text-sm sm:w-3/5">{{ formatPrice(entrer.price) }}</p>
             </div>
             <div class="border-b  p-2 my-2 sm:flex sm:items-center">
                 <p class="font-bold sm:w-2/5">Effectué le</p>
@@ -57,7 +57,7 @@ import { useCrudStore } from '@/stores/crudStore';
 import { storeToRefs } from 'pinia';
 import ModalLoader from '@/components/ModalLoader.vue';
 import { onUnmounted } from 'vue';
-import { formatDate } from '@/helper';
+import { formatDate, formatPrice } from '@/helper';
 const crudStore = useCrudStore()
 const emits = defineEmits(['confirm'])
 const { item: entrer } = storeToRefs(crudStore)
