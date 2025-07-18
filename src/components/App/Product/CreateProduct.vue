@@ -20,8 +20,9 @@
                 </div>
                 <div class="flex gap-5 my-2">
                     <div class="flex items-center p-1 gap-1">
-                        <input type="radio" v-model="produit.category" value="kilo_ou_carton" name="category" id="kilo_ou_carton"
-                            class="input-checkbox"> <label for="kilo_ou_carton">À vendre au kilo ou carton</label>
+                        <input type="radio" v-model="produit.category" value="kilo_ou_carton" name="category"
+                            id="kilo_ou_carton" class="input-checkbox"> <label for="kilo_ou_carton">À vendre au kilo ou
+                            carton</label>
                     </div>
                     <div class="flex items-center p-1 gap-1">
                         <input type="radio" v-model="produit.category" value="unite" name="category" id="unite"
@@ -30,24 +31,42 @@
                     </div>
                 </div>
                 <template v-if="produit.category == 'kilo_ou_carton'">
-                    <div class="lg:flex">
+                    <div class="lg:flex gap-3">
                         <div class="w-full">
-                            <label for="price" class="label">Prix du kilo</label>
-                            <input type="number" step="0.10" v-model="produit.price_kilo" class="input" id="price">
+                            <label for="price_kilo_min" class="label">Prix minimum du kilo</label>
+                            <input type="number" step="0.10" v-model="produit.price_kilo_min" class="input"
+                                id="price_kilo_min">
+                        </div>
+                        <div class="w-full">
+                            <label for="price_kilo_max" class="label">Prix maximum du kilo</label>
+                            <input type="number" step="0.10" v-model="produit.price_kilo_max" class="input"
+                                id="price_kilo_max">
                         </div>
                     </div>
-                    <div class="lg:flex">
+                    <div class="lg:flex gap-3">
                         <div class="w-full">
-                            <label for="price" class="label">Prix du carton</label>
-                            <input type="number" step="0.10" v-model="produit.price_carton" class="input" id="price">
+                            <label for="price_box_min" class="label">Prix minimum du carton</label>
+                            <input type="number" step="0.10" v-model="produit.price_carton_min" class="input"
+                                id="price_box_min">
+                        </div>
+                        <div class="w-full">
+                            <label for="price_box_max" class="label">Prix maximum du carton</label>
+                            <input type="number" step="0.10" v-model="produit.price_carton_max" class="input"
+                                id="price_box_max">
                         </div>
                     </div>
                 </template>
                 <template v-if="produit.category == 'unite'">
-                    <div class="lg:flex">
+                    <div class="lg:flex gap-3">
                         <div class="w-full">
-                            <label for="price" class="label">Prix unitaire</label>
-                            <input type="number" step="0.10" v-model="produit.price_unit" class="input" id="price">
+                            <label for="price_unit_min" class="label">Prix unitaire minimum</label>
+                            <input type="number" step="0.10" v-model="produit.price_unit_min" class="input"
+                                id="price_unit_min">
+                        </div>
+                        <div class="w-full">
+                            <label for="price_unit_max" class="label">Prix unitaire maximum</label>
+                            <input type="number" step="0.10" v-model="produit.price_unit_max" class="input"
+                                id="price_unit_max">
                         </div>
                     </div>
                 </template>
@@ -82,11 +101,22 @@ onBeforeMount(() => {
     crudStore.create();
 })
 const createMarque = () => {
+    console.log(produit.value);
     crudStore.store();
     emits("confirm")
 }
 const updateMarque = () => {
-    crudStore.update({ name: produit.value.name, marque_id: produit.value.marque_id, price_kilo: produit.value.price_kilo, price_carton: produit.value.price_carton });
+    crudStore.update({
+        name: produit.value.name,
+        marque_id: produit.value.marque_id,
+        price_kilo_min: produit.value.price_kilo_min,
+        price_kilo_max: produit.value.price_kilo_max,
+        price_carton_min: produit.value.price_carton_min,
+        price_carton_max: produit.value.price_carton_max,
+        price_unit_min: produit.value.price_unit_min,
+        price_unit_max: produit.value.price_unit_max,
+        category: produit.value.category,
+    });
     emits("confirm")
 }
 onUnmounted(() => {
@@ -104,7 +134,7 @@ watch(() => produit.value.category, (newCategory) => {
         } else {
             delete produit.value.price_unit
         }
-        
+
     }
 })
 

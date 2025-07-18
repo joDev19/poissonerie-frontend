@@ -9,6 +9,7 @@ import Profile from '@/views/App/User/Profile.vue'
 import IndexEmployee from '@/views/App/Employee/Index.vue'
 import IndexProduct from "@/views/App/Product/Index.vue"
 import Dashboard from '@/views/App/Dashboard.vue'
+import Stats from '@/views/App/Vente/Stats.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -53,6 +54,11 @@ const router = createRouter({
       path: '/vente/dashboard',
       name: 'vente',
       component: IndexVente
+    },
+    {
+      path: '/statistique/vente',
+      name: 'stat_vente',
+      component: Stats
     },
     {
       path: '/user/profile',

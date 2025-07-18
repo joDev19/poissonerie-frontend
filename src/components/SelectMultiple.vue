@@ -2,19 +2,24 @@
     <div class="w-full">
         <label for="produit" class="label">Produit</label>
         <input type="text" v-model="filter" class="input mb-2" placeholder="rechercher un produit">
-        <select multiple name="produit"
-            class="w-full h-40 border border-gray-300 focus:outline-none border-gray-400 rounded text-lg p-2" id="produit">
-            <option :value="0">Choisir le produit</option>
-            <option v-for="p in filteredData" :key="p.id" :value="p.id" @dblclick="() => addOrRemoveId(p.id)"
-                :class="selectedElements.includes(p.id) ? 'bg-gray-400' : ''"
-                class="appearance-none has-checked:bg-red-500">{{ p.name
-                }}</option>
-        </select>
+        <div class="w-full h-40 border border-gray-300 focus:outline-none border-gray-400 rounded text-lg px-2"
+            id="produit">
+            <ul class="p-2 divide-y divide-gray-200">
+                <div v-for="p in filteredData" class="">
+                    <label :for="`lab-${p.id}`" class="flex gap-2">
+                        <input v-model="selectedElements" :value="p.id" type="checkbox" name="" :id="`lab-${p.id}`">
+                        <li :class="selectedElements.includes(p.id) ? 'bg-gray-400 text-white' : ''"
+                            class="p-1 rounded-sm hover:cursor-pointer w-full">{{ p.name }}</li>
+                    </label>
+
+                </div>
+            </ul>
+        </div>
     </div>
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 
 const selectedElements = ref([]);
 const filter = ref("");
@@ -30,17 +35,9 @@ const props = defineProps({
 })
 const emit = defineEmits(['updateElements'])
 const filteredData = computed(() => props.data.filter(el => el[props.filterBy].toLowerCase().includes(filter.value.toLowerCase())))
-const addOrRemoveId = (id) => {
-    if (selectedElements.value.includes(id)) {
-        // remove
-        selectedElements.value = selectedElements.value.filter(el => el != id);
-    } else {
-        // add
-        selectedElements.value = [...selectedElements.value, id]
-    }
-    emit('updateElements', selectedElements.value)
-    console.log(selectedElements.value)
-}
+watch(selectedElements, (newValue) => {
+    emit('updateElements', newValue);
+});
 </script>
 
 <style lang="scss" scoped></style>

@@ -1,10 +1,18 @@
 <template>
-    <div class="lg:flex lg:gap-2 lg:items-stretch">
-        <div v-for="item in items" :key="item.value" class="lg:w-1/3">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div v-for="item in items" :key="item.value" class="lg:w-full">
             <p class="font-semibold">
                 {{ item.show }}
             </p>
-            <input v-if="item.type=='date'" type="date" v-model="filters[item.value]" class="input">
+            <input v-if="item.type == 'date'" type="date" v-model="filters[item.value]" class="input">
+            <input v-if="item.type == 'radio'" :name="item.name" type="radio" :value="item.value"
+                v-model="filters[item.name]" class="input-checkbox mt-2">
+            <select v-if="item.type == 'select'" :name="item.name" v-model="filters[item.name]"
+                class="input">
+                <option v-for="option in item.filterData" :key="option.value" :value="option.value">
+                    {{ option.label }} 
+                </option>
+            </select>
         </div>
     </div>
     <div v-if="items.length > 0" class="flex gap-3">
@@ -25,6 +33,7 @@ const props = defineProps({
     items: Array
 })
 const crudStore = useCrudStore()
+
 const { filters } = storeToRefs(crudStore)
 const loaderStore = useLoaderStore()
 const filter = () => {
@@ -38,6 +47,7 @@ onUnmounted(() => {
 const reset = () => {
     crudStore.resetFilter();
 }
+
 
 </script>
 

@@ -7,32 +7,28 @@
                 </th>
                 <th class="td-middle-table">
                     <div class="flex gap-1">
-                        <img class="hidden xl:inline" src="../../../../public/icons/price.png" alt="">
                         Prix du kilo
                     </div>
 
                 </th>
                 <th class="td-middle-table">
                     <div class="flex gap-1">
-                        <img class="hidden xl:inline" src="../../../../public/icons/price.png" alt="">
                         Prix du carton
                     </div>
                 </th>
                 <th class="td-middle-table">
                     <div class="flex gap-1">
-                        <img class="hidden xl:inline" src="../../../../public/icons/price.png" alt="">
+
                         Prix unitaire
                     </div>
                 </th>
                 <th class="td-middle-table">
                     <div class="flex gap-1">
-                        <img class="hidden xl:inline" src="../../../../public/icons/kilo.png" alt="">
-                        <img class="hidden xl:inline" src="../../../../public/icons/carton.png" alt=""> Quantité
-                        disponible
+                        Quantité disponible
                     </div>
                 </th>
                 <th class="td-middle-table">
-                    <img class="hidden xl:inline" src="../../../../public/icons/calendar.png" alt=""> Date de création
+                    Date de création
                 </th>
                 <th class="td-end-table">
                     Actions
@@ -41,25 +37,35 @@
         </thead>
         <tbody>
             <tr v-for="product in products" :key="product.id" class="border-b-2"
-                :class="checkIfProductIsUnderSolde(product) ? (checkIfProductIsOver(product) ? 'bg-red-100' : 'bg-yellow-100') :''">
+                :class="checkIfProductIsUnderSolde(product) ? (checkIfProductIsOver(product) ? 'bg-red-100' : 'bg-yellow-100') : ''">
                 <td class="td-start-table">
                     {{ product.name }}
                 </td>
                 <td class="td-middle-table">
-                    <span v-if="product.price_kilo == 0">_</span> <span v-else>{{ formatPrice(product.price_kilo)
+                    <template v-if="product.category == 'unite'">
+                        <span>_</span>
+                    </template>
+                    <template v-else>
+                        {{ formatPrice(product.price_kilo_min)
+                        }} - {{ formatPrice(product.price_kilo_max)
+                        }}
+                    </template>
+                </td>
+                <td class="td-middle-table">
+                    <span v-if="product.category == 'unite'">_</span> <span v-else>{{
+                        formatPrice(product.price_carton_min)
+                        }} - {{ formatPrice(product.price_carton_max)
                         }}</span>
                 </td>
                 <td class="td-middle-table">
-                    <span v-if="product.price_carton == 0">_</span> <span v-else>{{ formatPrice(product.price_carton)
-                        }}</span>
+                    <span v-if="product.category=='unite'">{{ formatPrice(product.price_unit_min) }} - {{ formatPrice(product.price_unit_max)
+                    }}</span>
+                    <span v-else>_</span>
                 </td>
                 <td class="td-middle-table">
-                    <span v-if="product.price_unit == 0">_</span> <span v-else>{{ formatPrice(product.price_unit)
-                        }}</span>
-                </td>
-                <td class="td-middle-table">
-                    <span v-if="product.category=='kilo_ou_carton'">
-                        {{ product?.quantity?.kg }} kg | {{ product?.quantity?.box }} carton(s)
+                    <span v-if="product.category == 'kilo_ou_carton'">
+                        {{ product?.quantity?.kg }} kg
+                        <!-- {{ product?.quantity?.box }} carton(s) -->
                     </span>
                     <span v-else>
                         {{ product?.quantity?.unit }} unités

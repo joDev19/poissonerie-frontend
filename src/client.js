@@ -2,8 +2,8 @@ import axios from "axios";
 import Swal from 'sweetalert2'
 import router from "./router";
 const client = axios.create({
-    // baseURL: 'http://localhost:8000',
-    baseURL: 'https://heron-bright-shad.ngrok-free.app',
+    baseURL: 'http://localhost:8000',
+    // baseURL: 'https://heron-bright-shad.ngrok-free.app',
 
     // timeout: 1000,
     headers: { "Accept": "application/json", "ngrok-skip-browser-warning": "true" },

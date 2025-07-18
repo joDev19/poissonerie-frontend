@@ -33,10 +33,11 @@
                                     id="quantite">
                             </div>
                             <div class="w-full">
-                                <label for="quantite" class="label">Quantité en kilo</label>
-                                <input type="number" step="0.01" v-model="entrer.kilo_quantity" name="quantite"
+                                <label for="quantite" class="label">Nombre de kilo d'un carton</label>
+                                <input type="number" step="0.01" v-model="entrer.kilo_once_quantity" name="quantite"
                                     class="input" id="quantite">
                             </div>
+
                         </div>
                         <div v-else class="lg:flex lg:gap-3 lg:w-1/2">
                             <div class="w-full">
@@ -58,6 +59,11 @@
                                 :value="fournisseur.id">{{ fournisseur.name }}
                             </option>
                         </select>
+                    </div>
+                    <div v-if="checkIfProductIsSellByKilo()" class="w-full">
+                        <label for="quantite" class="label">Nombre de kilo total</label>
+                        <input type="number" :readonly="true" step="0.01" v-model="nombreKiloTotal" name="quantite"
+                            class="input" id="quantite">
                     </div>
                     <div class="w-full">
                         <label for="marque" class="label">Marque</label>
@@ -87,7 +93,7 @@
 <script setup>
 import { VueFinalModal } from 'vue-final-modal';
 import Button from '../../Button.vue';
-import { onUnmounted, ref, watch } from 'vue';
+import { computed, onUnmounted, ref, watch } from 'vue';
 import ModalLoader from '@/components/ModalLoader.vue';
 import { storeToRefs } from 'pinia';
 import { useCrudStore } from '@/stores/crudStore';
@@ -104,6 +110,12 @@ const props = defineProps({
         default: null,
         required: false
     }
+})
+const nombreKiloTotal = computed(() => {
+    if (entrer.value.product_id && entrer.value.box_quantity && entrer.value.kilo_once_quantity) {
+        return entrer.value.box_quantity * entrer.value.kilo_once_quantity
+    }
+    return 0;
 })
 if (props.entrerId) {
     crudStore.show(props.entrerId);
@@ -128,7 +140,7 @@ const handleSubmit = () => {
     emits("confirm")
 }
 const checkIfProductIsSellByKilo = () => {
-    return createData.value.products.find(p => p.id == entrer.value.product_id).category == 'kilo_ou_carton'
+    return createData.value.products.find(p => p.id == entrer.value?.product_id)?.category == 'kilo_ou_carton'
 }
 watch(() => entrer.value.product_id, (newProductId) => {
     delete entrer.value.unit_quantity

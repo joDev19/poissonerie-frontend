@@ -24,7 +24,11 @@
                 <p class="text-sm sm:w-3/5">{{ entrer.box_quantity }}</p>
             </div>
             <div class="border-b  p-2 my-2 sm:flex sm:items-center">
-                <p class="font-bold sm:w-2/5">Quantité de kilo</p>
+                <p class="font-bold sm:w-2/5">Quantité de kilo par carton</p>
+                <p class="text-sm sm:w-3/5">{{ entrer.kilo_once_quantity }}</p>
+            </div>
+            <div class="border-b  p-2 my-2 sm:flex sm:items-center">
+                <p class="font-bold sm:w-2/5">Quantité de kilo total</p>
                 <p class="text-sm sm:w-3/5">{{ entrer.kilo_quantity }}</p>
             </div>
             <div class="border-b  p-2 my-2 sm:flex sm:items-center">

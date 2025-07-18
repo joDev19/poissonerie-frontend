@@ -19,7 +19,7 @@
                         <RouterLink class="flex items-center justify-start gap-3 py-4 px-2 rounded-lg hover:bg-blue-800"
                             :to="{ name: 'marque' }" active-class="bg-blue-800">
                             <img src="../../../public/icons/categorie.png" class="w-10 px-2" alt="">
-                            <p class="w-7/8 text-white text-lg font-semibold">Gérer les catégories</p>
+                            <p class="w-7/8 text-white text-lg font-semibold">Gérer les marques</p>
                         </RouterLink>
                     </li>
                     <li v-if="checkIfUserIsAdmin()" class="my-1">
@@ -51,6 +51,14 @@
                             <!-- <i class="fa-solid fa-arrow-left w-1/8" style="color:#fff;"></i> -->
                             <img src="../../../public/icons/sell.png" class="w-10 px-2" alt="">
                             <p class="w-7/8 text-white text-lg font-semibold">Suivis des ventes</p>
+                        </RouterLink>
+                    </li>
+                    <li class="my-1">
+                        <RouterLink class="flex items-center justify-start gap-3 py-4 px-2 rounded-lg hover:bg-blue-800"
+                            :to="{ name: 'stat_vente' }" active-class="bg-blue-800">
+                            <!-- <i class="fa-solid fa-arrow-left w-1/8" style="color:#fff;"></i> -->
+                            <img src="../../../public/icons/sell.png" class="w-10 px-2" alt="">
+                            <p class="w-7/8 text-white text-lg font-semibold">Statistisque sur les ventes</p>
                         </RouterLink>
                     </li>
                     <li v-if="checkIfUserIsAdmin()" class="my-1">

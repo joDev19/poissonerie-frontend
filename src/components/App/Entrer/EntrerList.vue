@@ -9,23 +9,23 @@
 
                 <th class="td-middle-table">
                     <div class="flex gap-1">
-                        <img class="hidden lg:inline" src="../../../../public/icons/carton.png" alt="">Quantité de
+                        Quantité de
                         carton
                     </div>
 
                 </th>
                 <th class="td-middle-table">
                     <div class="flex gap-1">
-                        <img class="hidden lg:inline" src="../../../../public/icons/carton.png" alt="">Quantité
+                        Nombre de Kilograme
                     </div>
-
                 </th>
                 <th class="td-middle-table">
                     <div class="flex gap-1">
-                        <img class="hidden lg:inline" src="../../../../public/icons/kilo.png" alt="">Nombre de
-                        Kilograme
+                        Nombre acheté
                     </div>
+
                 </th>
+
                 <th class="td-middle-table">
                     <div class="flex gap-1">
                         <img class="hidden lg:inline" src="../../../../public/icons/price.png" alt="">Prix
@@ -46,15 +46,19 @@
                 </td>
 
                 <td class="td-middle-table">
-                    {{ entrer.box_quantity }}
+                    <span v-if="entrer.product?.category=='unite'">_</span>
+                    <span v-else>{{ entrer.box_quantity }}</span>
+                </td>
+                <td class="td-middle-table">
+                    <span v-if="entrer.product?.category == 'unite'">_</span>
+                    <span v-else>{{ entrer.kilo_quantity }}</span>
+                    
                 </td>
                 <td class="td-middle-table">
                     <!-- {{ entrer.unit_quantity }} -->
                     <span v-if="entrer.unit_quantity == 0">_</span> <span v-else>{{ entrer.unit_quantity }}</span>
                 </td>
-                <td class="td-middle-table">
-                    {{ entrer.kilo_quantity }}
-                </td>
+
                 <td class="td-middle-table">
                     {{ formatPrice(entrer.price) }}
                 </td>

@@ -12,18 +12,22 @@
                 <p class="sm:w-3/5"><span v-if="produit.category == 'unite'">Produit à vente unitaire</span><span
                         v-else>Produit à vendre en kg ou en carton</span></p>
             </div>
-            <div v-if="produit.category == 'kilo_ou_carton'" class="border-b  p-2 my-2 sm:flex sm:items-center">
-                <p class="font-bold sm:w-2/5">Prix du kilo</p>
-                <p class="sm:w-3/5">{{ produit.price_kilo }} xof</p>
-            </div>
-            <div v-if="produit.category == 'kilo_ou_carton'" class="border-b  p-2 my-2 sm:flex sm:items-center">
-                <p class="font-bold sm:w-2/5">Prix du carton</p>
-                <p class="sm:w-3/5">{{ produit.price_carton }} xof</p>
-            </div>
-            <div v-if="produit.category == 'unite'" class=" border-b p-2 my-2 sm:flex sm:items-center">
-                <p class="font-bold sm:w-2/5">Prix unitaire</p>
-                <p class="sm:w-3/5">{{ produit.price_unit }} xof</p>
-            </div>
+            <template v-if="produit.category == 'kilo_ou_carton'">
+                <div  class="border-b  p-2 my-2 sm:flex sm:items-center">
+                    <p class="font-bold sm:w-2/5">Prix du kilo</p>
+                    <p class="sm:w-3/5">{{ formatPrice(produit.price_kilo_min) }} - {{ formatPrice(produit.price_kilo_max) }} </p>
+                </div>
+                <div class="border-b  p-2 my-2 sm:flex sm:items-center">
+                    <p class="font-bold sm:w-2/5">Prix du carton</p>
+                    <p class="sm:w-3/5">{{ formatPrice(produit.price_carton_min) }} - {{ formatPrice(produit.price_carton_max) }} </p>
+                </div>
+            </template>
+            <template v-if="produit.category == 'unite'">
+                <div class=" border-b p-2 my-2 sm:flex sm:items-center">
+                    <p class="font-bold sm:w-2/5">Prix unitaire</p>
+                    <p class="sm:w-3/5">{{ formatPrice(produit.price_unit_min) }} - {{ formatPrice(produit.price_unit_max) }} </p>
+                </div>
+            </template>
             <div class="border-b  p-2 my-2 sm:flex sm:items-center">
                 <p class="font-bold sm:w-2/5">Quantité disponible</p>
                 <p class="sm:w-3/5">
@@ -31,7 +35,8 @@
                         {{ produit.quantity.unit }} unités
                     </span>
                     <span v-else>
-                        {{ produit.quantity.kg }} kg | {{ produit.quantity.box }} cartons(s)
+                        {{ produit.quantity.kg }} kg
+                         <!-- | {{ produit.quantity.box }} cartons(s) -->
                     </span>
                 </p>
             </div>
@@ -62,7 +67,7 @@
 import { VueFinalModal } from 'vue-final-modal';
 import Button from '@/components/Button.vue';
 import { onUnmounted } from 'vue';
-import { formatDate } from '@/helper';
+import { formatDate, formatPrice } from '@/helper';
 import { useCrudStore } from '@/stores/crudStore';
 import { storeToRefs } from 'pinia';
 const crudStore = useCrudStore()

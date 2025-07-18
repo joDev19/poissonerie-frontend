@@ -3,7 +3,7 @@
         <div class="p-5 lg:w-full lg:mx-auto">
             <div class="lg:flex lg:mb-3">
                 <div class="sm:w-full">
-                    <p class=" text-2xl">Mes Catégories</p>
+                    <p class=" text-2xl">Mes marques</p>
                     <!-- <p>Listes de mes catégories.</p> -->
                 </div>
                 <InputFilterByName @open="open" :disabled-add-button="!checkIfUserIsAdmin()" />

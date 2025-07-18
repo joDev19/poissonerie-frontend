@@ -4,6 +4,7 @@
             <template v-if="step === 1">
                 <div class="lg:flex lg:mb-3">
                     <MiniTitle text="Mes ventes" />
+                    <FilterById />
                     <InputFilterByName @open="venteStore.increment()" filterName="product_name_vente" />
                 </div>
                 <div class="flex items-center gap-2">
@@ -42,8 +43,8 @@
 import VenteList from '@/components/App/Vente/VenteList.vue';
 import MiniTitle from '@/components/MiniTitle.vue';
 import App from '@/components/Layout/App.vue';
-import Button from '@/components/Button.vue';
 import Filter from '@/components/Filter.vue';
+import FilterById from '@/components/FilterById.vue';
 import { onUnmounted, ref } from 'vue';
 import InputFilterByName from '@/components/InputFilterByName.vue';
 import { useVenteStore } from '@/stores/VenteStore';
@@ -57,12 +58,66 @@ const itemFilters = [
         show: "Date de début",
         value: "start_date",
         type: "date",
+        name: "",
         filterData: null
     },
     {
         show: "Date de fin",
         value: "end_date",
         type: "date",
+        name: "",
+        filterData: null
+    },
+    {
+        show: "Payées",
+        value: 1,
+        type: "radio",
+        name: "is_paid",
+        filterData: null
+    },
+    {
+        show: "Non payées",
+        value: 0,
+        type: "radio",
+        name: "is_paid",
+        filterData: null
+    },
+    {
+        show: "Type de vente",
+        value: null,
+        type: "select",
+        name: "type",
+        filterData: [
+            { value: "au comptant", label: "Au comptant" },
+            { value: "à terme", label: "À terme" },
+        ]
+    },
+    {
+        show: "Vente en gros",
+        value: 1,
+        type: "radio",
+        name: "contains_gros",
+        filterData: null
+    },
+    {
+        show: "Vente en détail",
+        value: 0,
+        type: "radio",
+        name: "contains_gros",
+        filterData: null
+    },
+    {
+        show: "Ventes au comptant",
+        value: "au comptant",
+        type: "radio",
+        name: "type",
+        filterData: null
+    },
+    {
+        show: "Ventes à terme",
+        value: "à terme",
+        type: "radio",
+        name: "type",
         filterData: null
     }
 ]
