@@ -37,14 +37,17 @@ import client from '@/client';
 import router from '@/router';
 import { RouterLink } from 'vue-router';
 import Cookies from 'js-cookie';
+import axios from 'axios';
 
 const signOut = () => {
     client.get("/api/logout").then(() => {
         Cookies.remove('poissonerie_auth_name')
+        Cookies.remove('token')
         // stocker un auth_is_connected a true
         Cookies.remove('auth_is_connected')
         Cookies.remove('auth_user_role')
-        router.push({ name: 'login' })
+        // router.push({ name: 'login' })
+        window.location.href = "/login"
     });
 }
 </script>

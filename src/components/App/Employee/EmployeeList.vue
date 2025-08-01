@@ -10,6 +10,9 @@
                 <th class="td-middle-table">Email
 
                 </th>
+                <th class="td-middle-table">Rôle
+
+                </th>
                 <th class="td-middle-table">
                     Ajouter le
                 </th>
@@ -29,6 +32,9 @@
 
                 <td class="td-middle-table ">
                     {{ employee.email }}
+                </td>
+                <td class="td-middle-table ">
+                    {{ employee.role }}
                 </td>
 
                 <td class="td-middle-table ">

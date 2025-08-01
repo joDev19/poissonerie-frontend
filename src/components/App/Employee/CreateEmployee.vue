@@ -17,9 +17,18 @@
                         <input type="text" id="email" class="input" v-model="employee.email">
                     </div>
                     <div>
+                        <label class="mb-2" for="email">Role</label>
+                        <select type="text" id="email" class="input" v-model="employee.role">
+                            <option value="employee">Employer</option>
+                            <option value="caissiere">Caissière</option>
+                        </select>
+                    </div>
+                    <div>
                         <label class="mb-2" for="password">Password</label>
                         <input type="text" id="password" class="input" v-model="employee.password">
-                        <button @click.prevent="" role="button" class="p-1 mt-1 text-sm border border-gray-300 rounded hover:cursor-pointer">Générer le mot de passe</button>
+                        <button @click.prevent="" role="button"
+                            class="p-1 mt-1 text-sm border border-gray-300 rounded hover:cursor-pointer">Générer le mot
+                            de passe</button>
                     </div>
                     <div class="h-2"></div>
                     <div class="flex justify-center">

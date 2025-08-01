@@ -1,5 +1,5 @@
 <template>
-    <div class=" w-full sm:w-auto mx-3">
+    <div class=" w-full sm:w-auto lg:mx-3">
         <input v-model="filters[filterId]" type="text" class="border border-gray-300 p-2 rounded focus:outline-none"
             placeholder="Rechercher par code">
     </div>

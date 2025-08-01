@@ -31,8 +31,6 @@ import Button from '@/components/Button.vue';
                 <ul class="list-disc pl-5">
                     <li>Nombre total de vente</li>
                     <li>Liste des produits vendu respectivement avec les quantité vendus</li>
-                    <li>Filtrer les vente par date et par produits</li>
-                    <li>Filtrer les vente par prix min - max</li>
                     <li>Afficher un graphique en baton pour la liste des produits venus et de leur quantité sur une
                         période données</li>
                     <li>Afficher les 5 produits les plus vendu sur une période donnée</li>

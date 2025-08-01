@@ -52,29 +52,37 @@
 import client from '@/client';
 import Button from '@/components/Button.vue';
 import router from '@/router';
+import axios from 'axios';
 import Cookies from 'js-cookie';
 import { ref } from 'vue';
 const user = ref({
     email: 'ppapadollard@gmail.com',
     'password': 'password'
 })
+
 const buttonIsLoading = ref(false);
 const handleSubmit = () => {
     buttonIsLoading.value = true;
-    client.get('/sanctum/csrf-cookie').then(() => {
-        client.post('api/login', user.value).then((res) => {
+    client.post('api/login', user.value).then((res) => {
+        // récupérer le token
+        const token = res.data.token
+        Cookies.set('token', token, { expires: 7 })
+        client.get('api/user',).then(response => {
             // stocker le nom 
-            Cookies.set('poissonerie_auth_name', res.data.name, { expires: 7 })
+            Cookies.set('poissonerie_auth_name', response.data.name, { expires: 7 })
             // stocker un auth_is_connected a true
             Cookies.set('auth_is_connected', true, { expires: 7 })
-            Cookies.set("auth_user_role", res.data.role, { expires: 7 })
+            Cookies.set("auth_user_role", response.data.role, { expires: 7 })
             // redireiger vers le dashboard
             //client.get("/api/user")
             router.push({ name: 'fournisseur' })
-        }).finally(() => {
+        })
+    }).catch((err) => {
+        alert("err.response.data")
+    })
+        .finally(() => {
             buttonIsLoading.value = false;
         })
-    })
 }
 </script>
 

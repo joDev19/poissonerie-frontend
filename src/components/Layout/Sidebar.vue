@@ -1,12 +1,14 @@
 <template>
     <div class="w-full h-screen flex fixed top-0 flex hidden lg:block lg:w-1/5 z-5 oversize:auto" id="sideBar">
-        <div class="w-5/6 sm:w-96 h-full bg-blue-700 lg:w-full">
-            <div class="p-5 ">
+        <div class="w-5/6 sm:w-96 h-full bg-blue-700 lg:w-full overflow-y-auto">
+            <div class="py-5 ps-5 bg-blue-700">
                 <!-- <img src="" alt="Logo"> -->
                 <p class="text-5xl text-white font-bold">StockFish</p>
             </div>
-            <div class="p-5 min-h-6/8">
-                <ul>
+
+
+            <div class="p-5 h-full">
+                <ul class="">
                     <li class="my-1">
                         <RouterLink class="flex items-center justify-start gap-3 py-4 px-2 rounded-lg hover:bg-blue-800"
                             :to="{ name: 'dashboard' }" active-class="bg-blue-800">
@@ -81,7 +83,7 @@
 
                 </ul>
             </div>
-            <div class="p-5 min-h-1/8 relative top-1/3 w-full">
+            <div class="p-5 relative top-1/3 w-full">
                 <div class="flex items-center justify-start gap-3 p-2 rounded-lg bg-blue-700">
                     <i class="fa-solid fa-gear w-1/8" style="color:#fff;"></i>
                     <p class="w-1/8 text-white text-lg font-semibold">Setting</p>

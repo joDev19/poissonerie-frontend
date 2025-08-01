@@ -13,16 +13,23 @@
             <div class="border-b  p-2 my-2 sm:flex sm:items-center">
                 <p class="font-bold sm:w-2/5">Produit(s)</p>
                 <p class="text-sm sm:w-3/5">
-                <div v-for="selled_product in vente?.selled_products" :key="selled_product.id" class="flex flex-row">
-                    {{ selled_product.product.name }} -&nbsp;
-                    {{ selled_product.quantity }}&nbsp;
-                    <template v-if="selled_product.product?.category == 'kilo_ou_carton'">
-                        <span v-show="selled_product.type_achat == 'detail'">kg</span>
-                        <span v-show="selled_product.type_achat == 'gros'">carton
-                            <span v-show="selled_product.quanity > 1">s</span>
-                        </span>
-                    </template> &nbsp; - &nbsp;
-                    {{ formatPrice(selled_product.total_price) }}
+                <div v-for="selled_product in vente?.selled_products" :key="selled_product.id"
+                    class="md:flex md:flex-row">
+                    <div class="font-bold">
+                        {{ selled_product.product.name }} &nbsp;
+                    </div>
+                    <div>
+                        {{ selled_product.quantity }}&nbsp;
+                        <template v-if="selled_product.product?.category == 'kilo_ou_carton'">
+                            <span v-show="selled_product.type_achat == 'detail'">kg</span>
+                            <span v-show="selled_product.type_achat == 'gros'">carton
+                                <span v-show="selled_product.quanity > 1">s</span> de {{ selled_product.quantity_per_box
+                                }} kg
+                                ( 1 carton à {{ selled_product.sell_price }} )
+                            </span>
+                        </template> &nbsp; - &nbsp;
+                        {{ formatPrice(selled_product.total_price) }}
+                    </div>
                 </div>
                 </p>
             </div>
@@ -65,26 +72,32 @@
                     <div class="p-2 my-2 sm:flex sm:items-center">
                         <p class="font-bold sm:w-2/5">Montant à encaisser</p>
                         <p class="text-sm sm:w-3/5">
-                            <input type="number" v-model="vente.amount_paid_this_time" class="border p-1 rounded w-full outline-none" :class="(vente.amount_paid_this_time <= 0 || vente.amount_paid_this_time > (vente.total_price - vente.amount_paid)) || vente.amount_paid_this_time == null? 'border-red-500' :  'border-green-500'"
+                            <input type="number" v-model="vente.amount_paid_this_time"
+                                class="border p-1 rounded w-full outline-none"
+                                :class="(vente.amount_paid_this_time <= 0 || vente.amount_paid_this_time > (vente.total_price - vente.amount_paid)) || vente.amount_paid_this_time == null? 'border-red-500' :  'border-green-500'"
                                 placeholder="Montant à encaisser" />
                         </p>
                     </div>
                     <div class="p-2 my-2 sm:flex sm:items-center sm:justify-start">
-                        <button type="submit" class="bg-blue-400 p-1 rounded text-white font-bold flex gap-1">Encaisser</button>
+                        <button type="submit"
+                            class="bg-blue-400 p-1 rounded text-white font-bold flex gap-1 items-center justify-center">Encaisser</button>
                     </div>
                 </form>
             </template>
-            <div class="rounded p-2 my-2 sm:flex sm:items-center sm:gap-4">
-                <button class="bg-blue-400 p-1 rounded text-white font-bold flex gap-1" @click.prevent="seeInvoice">Voir
+            <div class="rounded p-2 my-2 grid grid-cols-2 gap-2">
+                <button class="bg-blue-400 p-1 rounded text-white font-bold flex gap-1 items-center justify-center"
+                    @click.prevent="seeInvoice">Voir
                     la facture
                     <FileMinus />
                 </button>
                 <template v-if="!vente.is_paid">
-                    <button v-if="!showEncaisser" class="bg-blue-400 p-1 rounded text-white font-bold flex gap-1"
+                    <button v-if="!showEncaisser"
+                        class="bg-blue-400 p-1 rounded text-white font-bold flex gap-1 items-center justify-center"
                         @click.prevent="showEncaisserForm">Encaisser
                         <BadgeDollarSign />
                     </button>
-                    <button v-else class="bg-blue-400 p-1 rounded text-white font-bold flex gap-1"
+                    <button v-else
+                        class="bg-blue-400 p-1 rounded text-white font-bold flex gap-1 items-center justify-center"
                         @click.prevent="showEncaisserForm">Anuler encaissement
 
                         <XCircle />

@@ -106,20 +106,20 @@ const itemFilters = [
         name: "contains_gros",
         filterData: null
     },
-    {
-        show: "Ventes au comptant",
-        value: "au comptant",
-        type: "radio",
-        name: "type",
-        filterData: null
-    },
-    {
-        show: "Ventes à terme",
-        value: "à terme",
-        type: "radio",
-        name: "type",
-        filterData: null
-    }
+    // {
+    //     show: "Ventes au comptant",
+    //     value: "au comptant",
+    //     type: "radio",
+    //     name: "type",
+    //     filterData: null
+    // },
+    // {
+    //     show: "Ventes à terme",
+    //     value: "à terme",
+    //     type: "radio",
+    //     name: "type",
+    //     filterData: null
+    // }
 ]
 
 onUnmounted(() => {
