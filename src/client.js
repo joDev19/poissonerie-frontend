@@ -3,11 +3,12 @@ import Swal from 'sweetalert2'
 import router from "./router";
 import Cookies from "js-cookie";
 const client = axios.create({
-    baseURL: 'http://localhost:8000',
-    //baseURL: 'http://192.168.1.102:8000',
+    // baseURL: 'http://localhost:8000',
+
+    baseURL: import.meta.env.VITE_BACKEND_BASE_URL,
 
     // timeout: 1000,
-    headers: { "Accept": "application/json", "ngrok-skip-browser-warning": "true"},
+    headers: { "Accept": "application/json", "ngrok-skip-browser-warning": "true" },
     // xsrfCookieName: "XSRF-TOKEN",
     // xsrfHeaderName: "X-XSRF-TOKEN",
 });

@@ -1,33 +1,38 @@
 <template>
     <VueFinalModal class="flex justify-center items-center p-5"
         content-class="flex flex-col p-4 bg-white  rounded-lg space-y-2 w-full sm:w-3/5">
-        <div class="rounded-lg p-4">
-            <p class="font-bold flex gap-1"> <img src="../../../../public/icons/categorie-black.png" alt="">
-                Informations sur cette marque</p>
-            <div class="border-b  p-2 my-2 sm:flex sm:items-center">
-                <p class="font-bold sm:w-2/5">Nom</p>
-                <p class="sm:w-3/5">{{ marque.name }}</p>
+        <template v-if="useLoaderStore().active">
+            <ModalLoader :active="true"></ModalLoader>
+        </template>
+        <template v-else>
+            <div class="rounded-lg p-4">
+                <p class="font-bold flex gap-1"> <img src="../../../../public/icons/categorie-black.png" alt="">
+                    Informations sur cette marque</p>
+                <div class="border-b  p-2 my-2 sm:flex sm:items-center">
+                    <p class="font-bold sm:w-2/5">Nom</p>
+                    <p class="sm:w-3/5">{{ marque.name }}</p>
+                </div>
+                <div class="border-b  p-2 my-2 sm:flex sm:items-center">
+                    <p class="font-bold sm:w-2/5">Nombre de produits</p>
+                    <p v-if="marque.products" class="sm:w-3/5">{{ marque.products?.length }}</p>
+                </div>
+                <div class="border-b  p-2 my-2 sm:flex sm:items-center">
+                    <p class="font-bold sm:w-2/5">Date de création</p>
+                    <p class="sm:w-3/5">{{ marque.created_at }}</p>
+                </div>
+                <!-- <div class="border-b rounded p-2 my-2 sm:flex sm:items-center">
+                    <p class="font-bold sm:w-2/5">About</p>
+                    <p class="text-sm sm:w-3/5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam dolorem
+                        accusantium sapiente dolore rerum? Debitis, nostrum cupiditate aliquid earum expedita quae
+                        voluptatum delectus perferendis beatae. Dolorem eius libero tempore nam.</p>
+                </div> -->
             </div>
-            <div class="border-b  p-2 my-2 sm:flex sm:items-center">
-                <p class="font-bold sm:w-2/5">Nombre de produits</p>
-                <p v-if="marque.products" class="sm:w-3/5">{{ marque.products?.length }}</p>
+            <div class="flex justify-center">
+                <div class="float-end w-1/3">
+                    <Button type-name="button" text="OK" :loading="false" @click="emits('confirm')" />
+                </div>
             </div>
-            <div class="border-b  p-2 my-2 sm:flex sm:items-center">
-                <p class="font-bold sm:w-2/5">Date de création</p>
-                <p class="sm:w-3/5">{{ marque.created_at }}</p>
-            </div>
-            <!-- <div class="border-b rounded p-2 my-2 sm:flex sm:items-center">
-                <p class="font-bold sm:w-2/5">About</p>
-                <p class="text-sm sm:w-3/5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam dolorem
-                    accusantium sapiente dolore rerum? Debitis, nostrum cupiditate aliquid earum expedita quae
-                    voluptatum delectus perferendis beatae. Dolorem eius libero tempore nam.</p>
-            </div> -->
-        </div>
-        <div class="flex justify-center">
-            <div class="float-end w-1/3">
-                <Button type-name="button" text="OK" :loading="false" @click="emits('confirm')" />
-            </div>
-        </div>
+        </template>
     </VueFinalModal>
 </template>
 
@@ -37,6 +42,8 @@ import Button from '@/components/Button.vue';
 import { onUnmounted } from 'vue';
 import { useCrudStore } from '@/stores/crudStore';
 import { storeToRefs } from 'pinia';
+import { useLoaderStore } from '@/stores/Loader';
+import ModalLoader from '@/components/ModalLoader.vue';
 const crudStore = useCrudStore()
 const {item: marque} = storeToRefs(crudStore)
 const emits = defineEmits(["confirm"])

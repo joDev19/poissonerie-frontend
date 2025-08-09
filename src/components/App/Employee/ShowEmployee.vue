@@ -1,7 +1,7 @@
 <template>
     <VueFinalModal class="flex justify-center items-center p-5"
         content-class="flex flex-col p-4 bg-white  rounded-lg space-y-2 w-full sm:w-3/5">
-        <div v-if="entrer.fournisseur == undefined" class="w-full h-full">
+        <div v-if="useLoaderStore().active" class="w-full h-full">
 
             <ModalLoader :active="true"></ModalLoader>
         </div>
@@ -60,6 +60,7 @@ import Button from '@/components/Button.vue';
 import { useCrudStore } from '@/stores/crudStore';
 import { storeToRefs } from 'pinia';
 import ModalLoader from '@/components/ModalLoader.vue';
+import { useLoaderStore } from '@/stores/Loader';
 import { onUnmounted } from 'vue';
 import { formatDate } from '@/helper';
 const crudStore = useCrudStore()
