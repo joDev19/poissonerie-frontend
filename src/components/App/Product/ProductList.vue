@@ -132,7 +132,7 @@ const showUpdateModal = (id) => {
     updateCommand.open()
 }
 const showShowModal = (id) => {
-    crudStore.show(id);
+    crudStore.show(id, true);
     showCommand.open()
 }
 const showDeleteModal = (id) => {

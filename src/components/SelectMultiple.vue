@@ -2,7 +2,7 @@
     <div class="w-full">
         <label for="produit" class="label">Produit</label>
         <input type="text" v-model="filter" class="input mb-2" placeholder="rechercher un produit">
-        <div class="w-full h-40 border border-gray-300 focus:outline-none border-gray-400 rounded text-lg px-2"
+        <div class="w-full h-40 border border-gray-300 focus:outline-none border-gray-400 rounded text-lg px-2 overflow-auto"
             id="produit">
             <ul class="p-2 divide-y divide-gray-200">
                 <div v-for="p in filteredData" class="">

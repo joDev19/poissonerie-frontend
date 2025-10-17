@@ -43,7 +43,11 @@
         <tbody>
             <tr v-for="vente in ventes" :key="vente.id" class="border-b-2">
                 <td class="td-start-table">
-                    {{ vente.selled_products_name?.join(', ') }}
+                    {{ vente.selled_products_name?.join(', ') }} {{ " " }} <strong>
+                        {{vente.selled_products.map(v => v.surplusSale).length > 0 ?
+                            (vente.selled_products.map(v => v.surplusSale).some(v => v != null) ? `(vente en surplus)` : ``)
+                        : null}}
+                    </strong>
                 </td>
 
                 <!-- <td class="td-middle-table">
@@ -77,7 +81,7 @@
     <div class="mt-5 w-full">
         <p>Total des ventes: {{
             formatPrice(ventes.map(v => v.total_price).reduce((currentValue, acc) => currentValue + acc, 0))
-        }}</p>
+            }}</p>
     </div>
     <Paginate />
 </template>

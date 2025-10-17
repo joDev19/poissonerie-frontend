@@ -34,7 +34,9 @@
                                     ( 1 carton à {{ selled_product.sell_price }} )
                                 </span>
                             </template> &nbsp; - &nbsp;
-                            {{ formatPrice(selled_product.total_price) }}
+                            {{ formatPrice(selled_product.total_price) }} <strong>{{ selled_product.surplusSale == null
+                                ? '' : `(vente en
+                                surplus)`}}</strong>
                         </div>
                     </div>
                     </p>
