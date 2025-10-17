@@ -54,21 +54,19 @@
                 <td class="td-middle-table">
                     <span v-if="product.category == 'unite'">_</span> <span v-else>{{
                         formatPrice(product.price_carton_min)
-                        }} - {{ formatPrice(product.price_carton_max)
+                    }} - {{ formatPrice(product.price_carton_max)
                         }}</span>
                 </td>
                 <td class="td-middle-table">
-                    <span v-if="product.category=='unite'">{{ formatPrice(product.price_unit_min) }} - {{ formatPrice(product.price_unit_max)
-                    }}</span>
+                    <span v-if="product.category == 'unite'">{{ formatPrice(product.price_unit_min) }} - {{
+                        formatPrice(product.price_unit_max)
+                        }}</span>
                     <span v-else>_</span>
                 </td>
                 <td class="td-middle-table">
-                    <span v-if="product.category == 'kilo_ou_carton'">
-                        {{ product?.quantity?.kg }} kg
-                        <!-- {{ product?.quantity?.box }} carton(s) -->
-                    </span>
-                    <span v-else>
-                        {{ product?.quantity?.unit }} unités
+                    <span class="hover:cursor-pointer underline"
+                        @click.prevent="() => showQuantityModal(product.quantities, product.category)">
+                        Voir la quantité
                     </span>
                 </td>
                 <td class="td-middle-table">
@@ -93,6 +91,7 @@
 import { useModal } from 'vue-final-modal';
 import ConfirmDeletion from './ConfirmDeletion.vue';
 import CreateProduit from './CreateProduct.vue';
+import QuantityComponent from './QuantityComponent.vue';
 import ShowProduit from './ShowProduct.vue';
 import { useCrudStore } from '@/stores/crudStore';
 import { storeToRefs } from 'pinia';
@@ -114,6 +113,7 @@ const trashCommmand = useModal({
 const updateCommand = useModal({
     component: CreateProduit,
     attrs: {
+
         onConfirm() {
             updateCommand.close()
         }
@@ -138,6 +138,18 @@ const showShowModal = (id) => {
 const showDeleteModal = (id) => {
     crudStore.show(id);
     trashCommmand.open()
+}
+const showQuantityModal = (quantites, category) => {
+    useModal({
+        component: QuantityComponent,
+        attrs: {
+            quantites,
+            category,
+            onConfirm() {
+                quantityCommand.close()
+            }
+        }
+    }).open()
 }
 // onBeforeUnmount(() => {
 //     products.value = [];
