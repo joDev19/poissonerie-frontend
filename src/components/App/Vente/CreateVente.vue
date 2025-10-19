@@ -7,6 +7,8 @@ import SelectMultiple from '@/components/SelectMultiple.vue';
 import { computed, ref, watch } from 'vue';
 import { useVenteStore } from '@/stores/VenteStore';
 import { reFormatDate, formatPrice } from '@/helper';
+import { useModal } from 'vue-final-modal';
+import QuantityComponent from '../Product/QuantityComponent.vue';
 const venteStore = useVenteStore()
 const { step, isUpdate } = storeToRefs(venteStore)
 const loaderStore = useLoaderStore()
@@ -34,7 +36,7 @@ if (isUpdate.value && step.value == 2) {
 } else {
     console.log("c'est un create")
     vente.value.type_vente = "au comptant"
-    // vente.value.amount_paid = 0
+    vente.value.amount_paid = 0
     vente.value.is_paid = false
 }
 const verifyPriceIsBetweenTwice = (price, min, max) => {
@@ -126,6 +128,18 @@ const handleSubmit = () => {
         // c'est un update
     }
 }
+const showQuantityModal = (quantites, category) => {
+    useModal({
+        component: QuantityComponent,
+        attrs: {
+            quantites,
+            category,
+            onConfirm() {
+                quantityCommand.close()
+            }
+        }
+    }).open()
+}
 </script>
 <template>
     <p class="text-xl font-bold">Formulaire de vente en {{ vente.type }}</p>
@@ -163,7 +177,7 @@ const handleSubmit = () => {
                                     <label for="date" class="label">Quantité (en {{ product.sell_type == 'detail' ?
                                         'kilo' :
                                         'nombre de carton'
-                                        }})</label>
+                                    }})</label>
                                     <input type="number" step="0.01" name="date" v-model="product.sell_quantity"
                                         class="input" id="date">
                                 </div>
@@ -177,11 +191,24 @@ const handleSubmit = () => {
                             </div>
 
                         </div>
-                        <div v-if="product.category == 'kilo_ou_carton' && product.sell_type == 'gros'" class="mt-3">
+                        <div v-if="product.sell_type && product.category == 'kilo_ou_carton'"
+                            class="mt-3">
+                            <label for="" class="label">Selectionner un carton</label>
+                            <div v-for="q in product.quantities" :key="q.kilo_once_quantity"
+                                class="flex gap-2 justifyt-start items-center">
+                                <input :id="`idof-${q.kilo_once_quantity}`" :value="q.kilo_once_quantity"
+                                    type="radio" class="input-checkbox"
+                                    v-model="product.quantity_per_box" >
+                                <label :for="`idof-${q.kilo_once_quantity}`">Carton de {{ q.kilo_once_quantity }}
+                                    kilo</label>
+                            </div>
+
+                        </div>
+                        <!-- <div v-if="product.category == 'kilo_ou_carton' && product.sell_type == 'gros'" class="mt-3">
                             <label for="" class="label">Quantité de kilo par carton</label>
                             <input type="number" step="0.01" v-model="product.quantity_per_box" class="input"
                                 :placeholder="`Quantité de kilo par carton pour ${product.name}`">
-                        </div>
+                        </div> -->
                         <div v-if="product.sell_type" class="mt-3">
                             <label :for="`price-sell-${product.id}`" class="label">Prix du produit ({{
                                 product.category == 'unite' ? 'unite' : (product.sell_type == 'detail' ? 'kilo' :
@@ -344,13 +371,12 @@ const handleSubmit = () => {
                                                 formatPrice(product.price_carton_max) }}</td>
                                     </tr>
                                     <tr>
-                                        <td>Quantité disponible en kilo</td>
-                                        <td>{{ product.quantity.kg }} kg</td>
-                                    </tr>
-                                    <tr v-if="product.sell_type == 'gros' && product.quantity_per_box">
-                                        <td>Quantité disponible en carton</td>
-                                        <td>{{ product.quantity.kg / Number(product.quantity_per_box) }} carton(s) de {{
-                                            product.quantity_per_box }} kg</td>
+                                        <td>Quantité disponible</td>
+                                        <td>
+                                            <p @click="() => showQuantityModal(product.quantities, product.category)"
+                                                class="hover:cursor-pointer">Voir les quantités</p>
+                                        </td>
+                                        <!-- <td>{{ product.quantity.kg }} kg</td> -->
                                     </tr>
                                 </template>
                                 <tr v-if="product.category == 'unite'">
