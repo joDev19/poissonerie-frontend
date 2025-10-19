@@ -64,9 +64,12 @@
                     <span v-else>_</span>
                 </td>
                 <td class="td-middle-table">
-                    <span class="hover:cursor-pointer underline"
+                    <span v-if="product.category=='kilo_ou_carton'" class="hover:cursor-pointer underline"
                         @click.prevent="() => showQuantityModal(product.quantities, product.category)">
                         Voir la quantité
+                    </span>
+                    <span v-else>
+                        {{ product.quantities }} unités
                     </span>
                 </td>
                 <td class="td-middle-table">

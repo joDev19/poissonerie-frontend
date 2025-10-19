@@ -3,7 +3,7 @@
         content-class="flex flex-col p-4 bg-white  rounded-lg space-y-2 w-full sm:w-3/5">
         <div>
             <p class="font-bold text-lg mb-4">Détails de la quantité</p>
-            <template v-if="quantites.length ==0">
+            <template v-if="quantites.length == 0">
                 <p>Pas disponible</p>
             </template>
             <template v-else>

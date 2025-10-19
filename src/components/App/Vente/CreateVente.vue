@@ -387,7 +387,7 @@ const showQuantityModal = (quantites, category) => {
 
                                 <tr v-if="product.category == 'unite'">
                                     <td>Quantité disponible</td>
-                                    <td>{{ product.quantity.unit }}</td>
+                                    <td>{{ product.quantities }}</td>
                                 </tr>
                             </tbody>
                         </table>

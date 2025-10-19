@@ -7,7 +7,7 @@ const checkIfUserIsAdmin = () => {
 }
 const checkIfProductIsOver = (produit) => {
     if (produit.category == 'unite') {
-        return produit.quantity?.unit == 0;
+        return produit.quantities == 0;
     } else {
         // 
         return produit.quantity?.kg == 0 || produit.quantity?.box == 0
@@ -15,10 +15,10 @@ const checkIfProductIsOver = (produit) => {
 }
 const checkIfProductIsUnderSolde = (produit) => {
     if (produit.category == 'unite') {
-        return produit.quantity?.unit < 10;
+        return produit.quantities < 10;
     } else {
         // 
-        return produit.quantity?.kg < 10 || produit.quantity?.box < 10
+        return produit.quantities?.total_kilo < 10 || produit.quantities?.total_box < 10
     }
 }
 export { formatDate, reFormatDate, formatPrice, checkIfUserIsAdmin, checkIfProductIsOver, checkIfProductIsUnderSolde };
